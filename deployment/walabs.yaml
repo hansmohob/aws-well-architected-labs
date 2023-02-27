@@ -329,6 +329,10 @@ Resources:
           Target: "/cost/300_labs/300_splitting_sharing_cur_access/"
           Status: '301'
 
+        - Source: "/Cost/Cost_and_Usage_Analysis/300_Cloud_Intelligence_Dashboard_for_Azure/<*>.html"
+          Target: "/cost/300_labs/300_Cloud_Intelligence_Dashboard_for_Azure/"
+          Status: '301'
+
         - Source: "/Cost/Expenditure_Awareness/300_Automated_CUR_Query_and_Email_Delivery/<*>.html"
           Target: "/cost/300_labs/300_automated_cur_query_and_email_delivery/"
           Status: '301'

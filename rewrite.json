@@ -401,6 +401,12 @@
     "condition": null
   },
   {
+    "source": "/Cost/Cost_and_Usage_Analysis/300_Cloud_Intelligence_Dashboards_for_Azure/<*>.html",
+    "target": "/cost/300_labs/300_Cloud_Intelligence_Dashboard_for_Azure/",
+    "status": "301",
+    "condition": null
+  },
+  {
     "source": "/Cost/Expenditure_Awareness/300_Automated_CUR_Query_and_Email_Delivery/<*>.html",
     "target": "/cost/300_labs/300_automated_cur_query_and_email_delivery/",
     "status": "301",
