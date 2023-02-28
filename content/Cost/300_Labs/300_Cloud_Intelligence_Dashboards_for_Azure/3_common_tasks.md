@@ -6,10 +6,12 @@ weight: 30
 hidden: false
 ---
 
-Before we get started let's take a look at the resources we are going to create and how the solution aligns to the Well-Architected framework.
+Now that you have deployed the solution lets perform some common tasks.
 
 ### Manual Pull of Data
 {{%expand "Click to expand" %}}
+
+Azure cost 
 
 {{% /expand%}}
 
