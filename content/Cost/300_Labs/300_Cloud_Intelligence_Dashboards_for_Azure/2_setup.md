@@ -93,24 +93,24 @@ Parameters allow us to configure the deployment. Each parameter has a descriptio
 
 |Parameter|Section|Deployment|Guidance|
 |-|-|-|-|
-|SourceBucket|Common Settings|CloudFormation|Used for CloudFormation template deployment only. The deployment will fail if it cannot find source  |
-|CustomerCode|Common Settings|CloudFormation, Terraform|This is a prefix attached to each resource|
-|EnvironmentCode|Common Settings|CloudFormation, Terraform|desc|
-|CustomerTag|Common Settings|CloudFormation, Terraform|desc|
-|EnvironmentTag|Common Settings|CloudFormation, Terraform|desc|
-|AzureBlobURL|Microsoft Azure Settings|CloudFormation, Terraform|desc|
-|AzureApplicationID|Microsoft Azure Settings|CloudFormation, Terraform|desc|
-|AzureTenantID|Microsoft Azure Settings|CloudFormation, Terraform|desc|
-|AzureSecretKey|Microsoft Azure Settings|CloudFormation, Terraform|desc|
-|AzureTags|Microsoft Azure Settings|CloudFormation, Terraform|desc|
-|AzureCopySchedule|Data Copy Settings|CloudFormation, Terraform|desc|
-|GlueCopySchedule|Data Copy Settings|CloudFormation, Terraform|desc|
-|EnableDuplicationRemoval|Data Copy Settings|CloudFormation|desc|
-|BlobToS3SyncStartDate|Data Copy Settings|CloudFormation, Terraform|desc|
-|PartitionSize|Advanced Settings|CloudFormation, Terraform|desc|
-|MaxPartitionsPerFile|Advanced Settings|CloudFormation, Terraform|desc|
-|UseFullFilePath|Advanced Settings|CloudFormation, Terraform|desc|
-|Region|Regions and Availability Zones|Terraform|desc|
+|SourceBucket|Common Settings|CloudFormation|Key name of the S3 bucket containing installation files .e.g. azure-arm-identity.zip, azure-arm-storage.zip, cid-azure-gluejob-cfn.py, cid-azure-lambda0x.zip files, cid-azure-stack.yaml. The deployment will fail if it cannot find source files.  |
+|CustomerCode|Common Settings|CloudFormation, Terraform|Used to prefix all resource names. If you set the value to **star**, the  following resources will be created **star**lmdpdcidazurelambda01 for Lambda01 and **star**gljpdcidazure for the Glue job, etc.
+|EnvironmentCode|Common Settings|CloudFormation, Terraform|Used within the name of resources. This is useful when you need to deploy the solution to multiple environments. If you set the value to **dev**,  resources will be named starlmd**dev**cidazurelambda01 for Lambda01 and starglj**dev**cidazure for the Glue job, etc.|
+|CustomerTag|Common Settings|CloudFormation, Terraform|All resources that can be tagged are tagged. Tagging adds descriptive metadata to each resource. This tag helps us identify the resources by department, e.g. finops, devops, IT shared services, etc.|
+|EnvironmentTag|Common Settings|CloudFormation, Terraform|All resources that can be tagged are tagged. Tagging adds descriptive metadata to each resource. This tag helps us identify resources by environment, e.g. production, development, testing, etc. |
+|AzureBlobURL|Microsoft Azure Settings|CloudFormation, Terraform|Lambda functions query the Azure blob endpoint URL specified here. You can get the URL from the Azure portal Storage Account >  Settings Section > Endpoints > Blob service|
+|AzureApplicationID|Microsoft Azure Settings|CloudFormation, Terraform|Used by Lambda functions to request an OAUTH token. Get the Application ID from the Azure portal, refer to instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#sign-in-to-the-application)|
+|AzureTenantID|Microsoft Azure Settings|CloudFormation, Terraform|Used by Lambda functions to request an OAUTH token. Get the Tenant ID from the Azure portal, refer to instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#sign-in-to-the-application)|
+|AzureSecretKey|Microsoft Azure Settings|CloudFormation, Terraform|Used by Lambda functions to request an OAUTH token. Get the value of the Application secret from the Azure portal, refer to instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#option-2-create-a-new-application-secret)|
+|AzureTags|Microsoft Azure Settings|CloudFormation, Terraform|Enter Azure tag names to expose them as datafields in the QuickSight dashboard. Each specified value will add an additional column to the transformed dataset.
+|AzureCopySchedule|Data Copy Settings|CloudFormation, Terraform|Used to schedule the Azure data pull. It uses a Cron expression, more information [here.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html)|
+|GlueCopySchedule|Data Copy Settings|CloudFormation, Terraform|Used to schedule the Glue job which transforms data allowing it to be queried by Athena. It uses a Cron expression, more information [here.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html). The Glue transform should be scheduled to run after the Azure data pull completes.|
+|EnableDuplicationRemoval|Data Copy Settings|CloudFormation|Azure produces a single CSV file each day with month-to-date usage data. Lambda function 08 deduplicates the CSV file, passing only unique entries for Glue processing.|
+|BlobToS3SyncStartDate|Data Copy Settings|CloudFormation, Terraform|Used to define what Azure files are copied across for initial processing. Setting this value to 20200201 Will copy all files modified on and after February 1st 2020. Typically we want to copy all files on the first run, so set this to the date of the moon landing or something similar.|
+|PartitionSize|Advanced Settings|CloudFormation, Terraform|**Experimental**. Do not use.|
+|MaxPartitionsPerFile|Advanced Settings|CloudFormation, Terraform|**Experimental**. Do not use.|
+|UseFullFilePath|Advanced Settings|CloudFormation, Terraform|**Experimental**. Do not use|
+|Region|Regions and Availability Zones|Terraform|Sets the AWS region that AWS resources are deployed to.|
 
 {{% /expand%}}
 

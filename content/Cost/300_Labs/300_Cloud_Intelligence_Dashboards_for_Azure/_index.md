@@ -10,12 +10,12 @@ hidden: false
 
 28 February 2023
 
-### Authors and Contributors
+### Authors
 
-* **Mo Mohoboob** Solution Architect [AWS]
-* **Chris Schoerning** Solution Architect [AWS]
-* **Anton Kovalenko** Solution Architect [AWS]
-* **Iakov Gan** Technical Account Manager [AWS]
+**Mo Mohoboob** Solution Architect [AWS], **Chris Schoerning** Solution Architect [AWS], **Anton Kovalenko** Solution Architect [AWS]
+
+### Contributors
+**Iakov Gan** Technical Account Manager [AWS], **Yuriy Prykhodko** Technical Account Manager [AWS]
 
 ### Feedback
 

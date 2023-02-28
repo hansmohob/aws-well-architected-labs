@@ -19,11 +19,11 @@ Let's take a look at the services we'll use and their roles within the design.
 
 **Amazon EventBridge**
 : -- Serverless service that uses events to connect application components together, making it easier for you to build scalable event-driven applications.
-: -- Amazon EventBridge triggers an AWS Lambda function on a schedule. The Lambda Function starts the data copy from Microsoft Azure to Amazon S3.
+: -- Amazon EventBridge triggers an AWS Lambda function on a schedule. The Lambda Function starts the data copy process.
 
 **AWS Lambda** 
 : -- Compute service that lets you run code without provisioning or managing servers.
-: -- AWS Lambda Functions run the code that pulls data from Azure to AWS. [Azure libraries (SDK) for Python](https://learn.microsoft.com/en-us/azure/developer/python/sdk/azure-sdk-overview) are used.
+: -- AWS Lambda Functions run the code that pulls CSV files from Azure to AWS. [Azure libraries (SDK) for Python](https://learn.microsoft.com/en-us/azure/developer/python/sdk/azure-sdk-overview) are used.
 
 **Amazon Simple Notification Service (Amazon SNS)**
 : -- Managed service that provides message delivery from publishers to subscribers (also known as producers and consumers).
@@ -35,7 +35,7 @@ Let's take a look at the services we'll use and their roles within the design.
 
 **AWS Glue**
 : -- Serverless data integration service that makes it easier to discover, prepare, move, and integrate data from multiple sources for analytics, machine learning (ML), and application development.
-: -- AWS Glue does the heavy lifting, transforming incoming data, making it easier and more efficient to query. 
+: -- AWS Glue does the heavy lifting, transforming incoming data, making it easier and more efficient to query.
 
 **Amazon Athena**
 : -- Serverless, interactive analytics service built on open-source frameworks, supporting open-table and file formats.
@@ -94,25 +94,25 @@ The diagram below depicts. Arrows indicate the direction of invocation. Notice t
 |7|A Glue schedule triggers the Glue job|
 |8|The Glue job queries System Manager Parameter store to get values used by the job. E.g. S3 bucket name. This resource is part of Cloud Formation deployments only.|
 |9|The Glue job loads data from the S3 *azurecidraw* folder.|
-|10|The Glue job transforms the data adding new columns, changing data field types and transforms the data from CSV to Parquet format. The Parquet files are stored in the S3 *Parquet* folder.|
-|11|The Glue job updates the Glue Table Schema. The schema helps other services, like Athena, understand the structure of the data stored in S3.|
-|12|The Glue job copies the CSV files from the S3 *Raw* folder to the *Processed* folder, then deletes the contents of the *Raw* folder. We do this to retain the original files, in case we need to reprocess them. |
-|13 and 14|An Athena query uses the Glue Table and Parqeut files to build an Athena view.|
-|15|QuickSight uses the Athena query as its datasource.|
+|10|The Glue job adds new columns, changes data field types and transforms the data from CSV to Parquet format. The Parquet files are stored in the S3 *azurecidparquet* folder.|
+|11|The Glue job updates the Glue table schema. The schema helps other services, like Athena, understand the structure of the data stored in S3.|
+|12|The Glue job copies the CSV files from the S3 *azurecidraw* folder to the *azurecidprocessed* folder, then deletes the contents of the *azurecidraw* folder. We do this to retain the original files, in case we need to reprocess. |
+|13 and 14|An Athena query uses the Glue Table and parqeut files to build an Athena view.|
+|15|QuickSight uses the Athena view as its datasource.|
 
 ### Lambda blob copy stack 
 
-Let's zoom in on the Lambda functions and SNS topics. Each function is a discrete piece of code that performs a specific function. The functions use SNS to talk to each other. Functions 1-6 are written in Python. Function is is written in C#.
+Let's zoom in on the Lambda functions and SNS topics. Each function is a discrete piece of code that performs a specific function. The functions use SNS to talk to each other. Functions 01-06 are written in Python. Function 07 is is written in C#.
 
 ![Images/cidazure-lambda.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-lambda.png)
 
-Lambda functions 4, 5 and 6 are used to download large files. They take advantage of Amazon S3's multipart download option to accelerate file transfer. You can define the size of a large file by changing the *partition size* secret. We'll cover this and other parameters in the setup section.
+Lambda functions 04, 05 and 06 are used to download large files. They take advantage of Amazon S3's multipart download option to accelerate file transfer.
 
 ![Images/cidazure-lambda-filesize.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-lambda-filesize.png)
 
 ### Other Design Components
 
-* The Glue job uses a script written in pyspark. The script is stored in the same S3 bucket as raw and processed files in a **scripts** folder.
+* The Glue job uses a script written in pyspark. The script is stored in the *azurecidscripts* folder.
 * to finish
 
 
