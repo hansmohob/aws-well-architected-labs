@@ -59,7 +59,7 @@ Let's take a look at the services we'll use and their roles within the design.
 
 **AWS Systems Manager**
 : -- Acts as the operations hub for your AWS applications and resources.
-: -- Systems Manager Parameter Store stores parameters used to setup the Glue job when deploying through CloudFormation.
+: -- Systems Manager Parameter Store holds parameters used to setup the Glue job when deploying through CloudFormation.
 
 **Amazon CloudWatch**
 : -- Collects and visualizes real-time logs, metrics, and event data in automated dashboards to streamline your infrastructure and application maintenance.
@@ -77,9 +77,9 @@ continue - align to WAR.
 All resources created by the automated deployment follow a standard naming pattern. 
 <to finish>
 
-### High level data flow
+### High Level Diagram
 
-The diagram below depicts. Arrows indicate the direction of invocation. Notice that we haven't included Cloudwatch and KMS, which are used throughout the solution.
+The diagram below shows you how AWS service interact with each other and how AWS communicates with Azure. Arrows indicate the direction of invocation. Notice that we haven't included Cloudwatch and KMS, which are used throughout the solution.
 
 ![Images/cidazure-midlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-midlevel.png)
 
@@ -115,5 +115,6 @@ Lambda functions 04, 05 and 06 are used to download large files. They take advan
 * The Glue job uses a script written in pyspark. The script is stored in the *azurecidscripts* folder.
 * to finish
 
+Now we have an understanding of the solution design, let’s build it!
 
 {{< prev_next_button link_prev_url="../" link_next_url="../2_setup/" />}}
