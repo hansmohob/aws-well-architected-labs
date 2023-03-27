@@ -7,7 +7,7 @@ hidden: false
 ---
 
 {{% notice note %}}
-If you just want to deploy the dashboard, feel free to skip ahead to the [setup](../2_setup/)section.
+If you just want to deploy the dashboard, feel free to jump to the [setup](../2_setup/)section.
 {{% /notice %}}
 
 In this section we take a look under the hood to show you how the solution works. This will help you customize the design to meet your needs.
@@ -75,11 +75,40 @@ continue - align to WAR.
 ### Naming Convention
 
 All resources created by the automated deployment follow a standard naming pattern. 
-<to finish>
+
+![Images/cidazure-naming.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-naming.png?width=1000px)
+
+As with most rules, there are a few exceptions.
+
+1. If you deploy the solution with CloudFormation your S3 bucket will be named **stack name**-s3bucket-**unique id**
+2. System Center parameters start with **cidazure-var**.
+
+
+|AWS Resource ID|Description|
+|-|-|
+|atq|Amazon Athena named query|
+|atw|Amazon Athena workgroup|
+|cwd|Amazon Cloudwatch dashboard|
+|evr|Amazon EventBridge rule |
+|gld|AWS Glue database|
+|glj|AWS Glue job|
+|glt|AWS Glue table|
+|glx|AWS Glue security configuration|
+|iap|AWS IAM policy|
+|iar|AWS IAM role|
+|kms|AWS KMS key|
+|lmd|AWS Lambda function|
+|lml|AWS Lambda layer|
+|rgg|AWS Resource Group group|
+|sms|AWS Secrets Manager secret |
+|sns|Amazon SNS topic|
+|sss|Amazon S3 bucket (Terraform only)|
+
+
 
 ### High Level Diagram
 
-The diagram below shows you how AWS service interact with each other and how AWS communicates with Azure. Arrows indicate the direction of invocation. Notice that we haven't included Cloudwatch and KMS, which are used throughout the solution.
+The diagram below shows you how AWS service interact and how AWS communicates with Azure. Arrows indicate the direction of invocation. Notice that we haven't included Cloudwatch and KMS, which are used throughout the solution.
 
 ![Images/cidazure-midlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-midlevel.png)
 
@@ -92,17 +121,17 @@ The diagram below shows you how AWS service interact with each other and how AWS
 |5|Lambda functions interact with Azure blob storage over HTTPS.|
 |6|Lambda functions download CSV files to the S3 *azurecidraw* folder. It's not really a folder, but let's pretend it is!|
 |7|A Glue schedule triggers the Glue job|
-|8|The Glue job queries System Manager Parameter store to get values used by the job. E.g. S3 bucket name. This resource is part of Cloud Formation deployments only.|
+|8|The Glue job queries System Manager Parameter store to get values used by the job. E.g. S3 bucket name. This is part of CloudFormation deployments only.|
 |9|The Glue job loads data from the S3 *azurecidraw* folder.|
 |10|The Glue job adds new columns, changes data field types and transforms the data from CSV to Parquet format. The Parquet files are stored in the S3 *azurecidparquet* folder.|
 |11|The Glue job updates the Glue table schema. The schema helps other services, like Athena, understand the structure of the data stored in S3.|
-|12|The Glue job copies the CSV files from the S3 *azurecidraw* folder to the *azurecidprocessed* folder, then deletes the contents of the *azurecidraw* folder. We do this to retain the original files, in case we need to reprocess. |
+|12|The Glue job copies the CSV files from the S3 *azurecidraw* folder to the *azurecidprocessed* folder, then deletes the contents of the *azurecidraw* folder. We do this to retain the original files, in case we need to reprocess.|
 |13 and 14|An Athena query uses the Glue Table and parqeut files to build an Athena view.|
 |15|QuickSight uses the Athena view as its datasource.|
 
 ### Lambda blob copy stack 
 
-Let's zoom in on the Lambda functions and SNS topics. Each function is a discrete piece of code that performs a specific function. The functions use SNS to talk to each other. Functions 01-06 are written in Python. Function 07 is is written in C#.
+Let's zoom in on the Lambda functions and SNS topics. Each function is a discrete piece of code that performs a specific function. The functions use SNS to talk to each other. All functions are written in Python.
 
 ![Images/cidazure-lambda.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-lambda.png)
 
@@ -112,9 +141,9 @@ Lambda functions 04, 05 and 06 are used to download large files. They take advan
 
 ### Other Design Components
 
-* The Glue job uses a script written in pyspark. The script is stored in the *azurecidscripts* folder.
-* to finish
+* The S3 bucket folder hierarchy is really important. Things wont work if they are not where they are supposed to be. 
+* The Glue job uses a script written in pyspark. The script is stored in the *azurecidscripts* folder in a Terraform deployment and in the S3 artifacts bucket for a CloudFormation deployment.
 
-Now we have an understanding of the solution design, let’s build it!
+Now we have an understanding of the solution design, let’s build!
 
 {{< prev_next_button link_prev_url="../" link_next_url="../2_setup/" />}}

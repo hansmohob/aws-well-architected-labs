@@ -22,13 +22,15 @@ hidden: false
 We would love to hear your thoughts! Please drop us an [email](mailto:cloud-intelligence-dashboards@amazon.com) or raise an [issue.](/contributing/02_reportingbugs/) Got a great idea to improve this content? Head over to the [Contribution Guide.](/contributing/)
 
 ### Introduction
-Monitoring cloud usage is an important factor for all customers. Identifying areas for cost optimization starts with understanding cloud spend. Many customers are familiar with Amazon QuickSight and the [Cloud Intelligence Dashboards](/cost/200_labs/200_cloud_intelligence/) and want to use familiar tools to monitor cloud usage across multiple cloud providers. In this lab we show you how you can build a solution to view your Microsoft Azure usage data in Amazon QuickSight. You will build a data pipeline which securely pulls Azure cost management data to AWS. Your QuickSight dashboard will automatically refresh each day to display trends. You will need to be familiar with the AWS console, but we'll walk you through the design and setup step by step. This solution does not provide an aggregated view of usage across AWS and Azure (yet).
+Monitoring cloud usage is an important factor for all customers. Identifying areas for cost optimization starts with understanding cloud spend. Many customers use Amazon QuickSight and the [Cloud Intelligence Dashboards](/cost/200_labs/200_cloud_intelligence/) and want to use familiar tools to monitor cloud usage across multiple cloud providers. In this lab we show you how you can build a solution to view your Microsoft Azure usage data in Amazon QuickSight. You will build a data pipeline which securely pulls Azure cost management data to AWS. Your QuickSight dashboard will automatically refresh each day to show useful insights. You will need to be familiar with the AWS console, but we'll walk you through the design and setup step by step. This solution does not provide an aggregated view of usage across AWS and Azure (yet).
 
-![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-highlevel.png)
+![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-1.png?width=1000px)
+
+![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-3.png?width=1000px)
 
 ### Goals
 
-* Understand how AWS services are used as part of the solution.
+* Understand the AWS services and their roles in the solution.
 * Deploy an ETL pipeline to pull Azure cost management data to an Amazon S3 bucket on a daily recurring schedule.
 * Deploy a sample QuickSight dashboard to view your Azure usage data.
 * Run a manual pull of data.
@@ -37,12 +39,16 @@ Monitoring cloud usage is an important factor for all customers. Identifying are
 ### Prerequisites
 
 1. An existing AWS Account or you must complete the [AWS account setup lab.](/cost/100_labs/100_1_aws_account_setup/)
-2. An Amazon QuickSight Enterprise Edition Account
-3. A dedicated Azure Storage Account and storage container to house Azure cost management exports. The Storage Account should be configured for blob storage. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal)
+2. An Amazon QuickSight Enterprise Edition Account. If you do not already have one follow instructions [here.](https://aws.amazon.com/premiumsupport/knowledge-center/quicksight-enterprise-account/)
+3. A dedicated Azure Storage Account and blob storage container to house Azure cost management exports. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal) **All data within the blob storage container will be sent to Amazon S3**. It's best to use a dedicated blob container for this project.
 4. An Azure Active Directory application and service principal. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)**Note down the *Application secret* which is only displayed during setup.**
 5. The service principle must be assigned *Storage Blob Data Contributor* and *Storage Queue Data Contributor* roles scoped to the Storage Account used in step 3. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/storage/blobs/assign-azure-role-data-access?tabs=portal)
 6. The Azure Active Directory application's *Application ID* and *Tenant ID*. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#sign-in-to-the-application)
 7. Microsoft Azure must be configured to export cost management data to the dedicated Azure storage container, used in step 3, on a daily recurring schedule. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-export-acm-data?tabs=azure-portal)
+
+{{% notice warning %}}
+Do not export data for Actual cost (Usage and Purchases) and Amortized cost (Usage and Purchases) to the same Azure storage container. Only one metric will work with this solution. 
+{{% /notice %}} 
 
 Once you've setup Azure, you will need the following information to start the lab:
 
@@ -56,6 +62,12 @@ If you use Hashicorp Terraform within your organization, we have provided a samp
 {{% /notice %}} 
 
 ### Permissions Required
+
+You'll need permissions to create all **AWS resources** shown below.
+
+![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-highlevel.png)
+
+You'll also need to be able to deploy through **AWS CloudFormation** or **Hashicorp Terraform**. 
 
 <to complete>
 
@@ -71,7 +83,7 @@ Costs for this lab are broken down into the following components;
 
 **1-2 hours** depending on your level of experience. We'll speed up implementation by providing deployment templates to automate the build.
 
-When you are ready to begin, click the button below and hold on to your hat!
+When you're ready to begin, click the button below and hold on to your hat!
 
 {{< prev_next_button link_next_url="./1_solution_design/" button_next_text="Start Lab" first_step="true" />}}
 

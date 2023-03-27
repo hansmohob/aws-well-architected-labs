@@ -12,12 +12,12 @@ We've provided a set of deployment templates to speed up the build. Once you com
 The solution you are about to deploy is an example. Use this lab and the accompanying code to design your own solution that meets your specific cost optimization needs.
 {{% /notice %}} 
 
-Deployment is a two step process. First we deploy the AWS services, then we deploy the QuickSight dashboard. There are two methods for deploying AWS Services. Pick the one that suits you.
+Deployment is a two step process. First we deploy AWS services, then we deploy the QuickSight dashboard. There are two methods for deploying AWS Services. Pick the one that suits you.
 
-1. [**AWS CloudFormation**](#CloudFormation-Deployment). We will guide you through the setup step by step. You will need to setup Azure resources prior to deployment.
+1. [**AWS CloudFormation**](#CloudFormation-Deployment). We'll guide you through the setup step by step. You will need to setup Azure resources prior to deployment.
 2. [**Hashicorp Terraform**](#terraform-deployment). You will need to be familiar with Terraform and have an existing deployment pipeline. We include an example template showing you how to deploy Azure resources.
 
-### CloudFormation Deployment (14 Steps)
+### CloudFormation Deployment (16 Steps)
 {{%expand "Click to expand" %}}
 
 1. [Download](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Code/AWSCIDforAzure-CFN.zip) setup files and extract locally. The archive contains files listed below. **You don't need to extract individual files**.
@@ -25,45 +25,51 @@ Deployment is a two step process. First we deploy the AWS services, then we depl
 * **azure-arm-identity.zip** Lambda layer for Azure identity
 * **azure-arm-storage.zip** Lambda layer for Azure Storage
 * **cid-azure-gluejob-cfn.py** Glue python script
-* **cid-azure-lambda01.zip - cid-azure-lambda07.zip** Lambda function code. 
+* **cid-azure-lambda01.zip - cid-azure-lambda06.zip** Lambda function code. 
 * **cid-azure-stack.yaml** CloudFormation template.
+* **cid-azure-dashboard.yaml** Sample QuickSight dashboard
 
-2. Place the files in a new or existing Amazon S3 bucket. CloudFormation will access these files during deployment. If you are creating a new S3 bucket don't use the name in the screenshot above, someones probably already grabbed it! S3 bucket names need to be globally unique.
+2. Place the files in a new Amazon S3 bucket. CloudFormation will access these files during deployment. Don't use the name in the screenshot below, someone's probably already grabbed it! S3 bucket names need to be globally unique.
 ![Images/cidazure-setup-cfn-s3source](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-s3source.png?width=1000px)
 
-3. Browse to the CloudFormation service.
+3. Click into **cid-azure-stack-yaml** and grab the Object URL. You'll need this a moment.
+![Images/cidazure-setup-cfn-s3objecturl](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-s3objecturl.png?width=1000px)
+
+4. Browse to the **CloudFormation** service.
 ![Images/cidazure-setup-cfn-browse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-browse.png?width=1000px)
 
-4. Click **Create stack** and choose **With new resources (standard)**.
+5. Click **Create stack** and choose **With new resources (standard)**.
 ![Images/cidazure-setup-cfn-createstack](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-createstack.png?width=1000px)
-
-5. Enter `http://s3.amazonaws.com/BUCKETNAME/cid-azure-stack.yaml` into the **Amazon S3 URL** field. Replace *BUCKETNAME* with the name of the bucket you used in step 2. Click **Next**
+ 
+6. Paste in the Object URL you grabbed earlier into the **Amazon S3 URL** field. Click **Next**
 ![Images/cidazure-setup-cfn-template](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-template.png?width=1000px)
 
-6. Give the stack a name so you can identify it later on.
+7. Give the stack a name. The S3 bucket created by the stack will start with the name you enter here, so enter something similar to customer code.
 ![Images/cidazure-setup-cfn-stackname](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackname.png?width=1000px)
 
-7. Let's set values for our parameters. Fill in the **Common Settings** section. Refer to the [Parameters](#parameters) section for guidance.
+8. Let's set values for our parameters. Fill in the **Common Settings** section. Refer to the [Parameters](#parameters) section for guidance.
 ![Images/cidazure-setup-cfn-commonsettings](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-commonsettings.png?width=1000px)
 
-8. Fill in the **Microsoft Azure Settings** section. Refer to the [Parameters](#parameters) section for guidance.
+9. Fill in the **Microsoft Azure Settings** section. Refer to the [Parameters](#parameters) section for guidance.
 ![Images/cidazure-setup-cfn-azuresettings](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-azuresettings.png?width=1000px)
 
-9. Fill in the **Data Copy Settings** section. Refer to the [Parameters](#parameters) section for guidance.
+10. **Example of AzureFolderPath** In the screenshot below we would enter directory/* ![Images/cidazure-setup-cfn-azurefolder.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-azurefolder.png?width=400px)
+
+11. Fill in the **Data Copy Settings** section. Refer to the [Parameters](#parameters) section for guidance.
 ![Images/cidazure-setup-cfn-datasettings](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-datasettings.png?width=1000px)
 
-10. Leave the **Advanced Settings** as default and click **Next**
+12. Leave the **Advanced Settings** as default and click **Next**
 
-11. Configure Stack options. If you require a specific IAM role to deploy the template or need to add additional tags, you can do this here. Otherwise leave the settings as default. When you're ready click **Next**
+13. Configure Stack options. If you require a specific IAM role to deploy the template or need to add additional tags, you can do this here. Otherwise leave the settings as default. When you're ready click **Next**
 ![Images/cidazure-setup-cfn-stackoptions](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackoptions.png?width=1000px)
 
-12. Review the Cloudformation stack settings, check the box to **acknowledge that AWS CloudFormation might create IAM resources with custom names** and click **Submit**
+14. Review the Cloudformation stack settings, check the box to **acknowledge that AWS CloudFormation might create IAM resources with custom names** and click **Submit**
 ![Images/cidazure-setup-cfn-stackreview](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackreview.png?width=1000px)
 
-13. The CloudFormation stack will start to deploy. Click the **refresh** button to view progress. If you see a red status event, then something went wrong. Review the error, correct and try again.
+15. The CloudFormation stack will start to deploy. Click the **refresh** button to view progress. If you see a red status event, then something went wrong. Review the error, correct and try again.
 ![Images/cidazure-setup-cfn-stackprogress](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackprogress.png?width=1000px)
 
-14. The deployment will run for a few minutes. Once deployment is complete, you'll see a *CREATE_COMPLETE* message.
+16. The deployment will run for a few minutes. Once deployment is complete, you'll see a *CREATE_COMPLETE* message.
 ![Images/cidazure-setup-cfn-stackcomplete](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackcomplete.png?width=1000px)
 
 Great job, you've completed the setup! Now move onto [Dashboard Deployment.](#Dashboard-Deployment)
@@ -78,6 +84,15 @@ Great job, you've completed the setup now move onto [Dashboard Deployment.](#Das
 
 ### Dashboard Deployment (8 Steps)
 {{%expand "Click to expand" %}}
+We have created a sample dashboard to get you started. We'll use the [**cid-cmd**](https://github.com/aws-samples/aws-cudos-framework-deployment#demo) utility to import the dashboard template into your account. You'll need to run a few bash commands, but it's  much quicker than other methods.
+
+1. In the AWS Console, browse to CloudShell
+![Images/cidazure-setup-dashboard-cloudshell](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cloudshell.png?width=1000px)
+
+2. Install the latest pip package by running the following command: `python3 -m ensurepip --upgrade`
+
+3. Install cid-cmd using the following command: `pip3 install --upgrade cid-cmd`
+
 
 {{% /expand%}}
 
@@ -94,18 +109,20 @@ Parameters allow us to configure the deployment. Each parameter has a descriptio
 |Parameter|Section|Deployment|Guidance|
 |-|-|-|-|
 |SourceBucket|Common Settings|CloudFormation|Key name of the S3 bucket containing installation files .e.g. azure-arm-identity.zip, azure-arm-storage.zip, cid-azure-gluejob-cfn.py, cid-azure-lambda0x.zip files, cid-azure-stack.yaml. The deployment will fail if it cannot find source files.  |
-|CustomerCode|Common Settings|CloudFormation, Terraform|Used to prefix all resource names. If you set the value to **star**, the  following resources will be created **star**lmdpdcidazurelambda01 for Lambda01 and **star**gljpdcidazure for the Glue job, etc.
+|CustomerCode|Common Settings|CloudFormation, Terraform|Used to prefix all resource names. If you set the value to **star**, the  following resources will be created **star**lmdpdcidazurelambda01 for Lambda01 and **star**gljpdcidazure for the Glue job, etc. You can't set this to **aws** :_(
 |EnvironmentCode|Common Settings|CloudFormation, Terraform|Used within the name of resources. This is useful when you need to deploy the solution to multiple environments. If you set the value to **dev**,  resources will be named starlmd**dev**cidazurelambda01 for Lambda01 and starglj**dev**cidazure for the Glue job, etc.|
 |CustomerTag|Common Settings|CloudFormation, Terraform|All resources that can be tagged are tagged. Tagging adds descriptive metadata to each resource. This tag helps us identify the resources by department, e.g. finops, devops, IT shared services, etc.|
 |EnvironmentTag|Common Settings|CloudFormation, Terraform|All resources that can be tagged are tagged. Tagging adds descriptive metadata to each resource. This tag helps us identify resources by environment, e.g. production, development, testing, etc. |
+|Account Type|Microsoft Azure Settings|CloudFormation, Terraform|The type of agreement you have with Microsoft. Each agreement has a different data schema. Check [this](https://learn.microsoft.com/en-us/azure/cost-management-billing/automate/understand-usage-details-fields#list-of-fields-and-descriptions)link for details. To quickly determine your account type open an Azure cost export CSV file. If you have a *CostinBillingCurrency* column choose **MCA**. If you have a *Cost* column then go for **EA**, if you find a *PreTaxCost* column then select **PTAX**.|
 |AzureBlobURL|Microsoft Azure Settings|CloudFormation, Terraform|Lambda functions query the Azure blob endpoint URL specified here. You can get the URL from the Azure portal Storage Account >  Settings Section > Endpoints > Blob service|
 |AzureApplicationID|Microsoft Azure Settings|CloudFormation, Terraform|Used by Lambda functions to request an OAUTH token. Get the Application ID from the Azure portal, refer to instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#sign-in-to-the-application)|
 |AzureTenantID|Microsoft Azure Settings|CloudFormation, Terraform|Used by Lambda functions to request an OAUTH token. Get the Tenant ID from the Azure portal, refer to instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#sign-in-to-the-application)|
 |AzureSecretKey|Microsoft Azure Settings|CloudFormation, Terraform|Used by Lambda functions to request an OAUTH token. Get the value of the Application secret from the Azure portal, refer to instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#option-2-create-a-new-application-secret)|
-|AzureTags|Microsoft Azure Settings|CloudFormation, Terraform|Enter Azure tag names to expose them as datafields in the QuickSight dashboard. Each specified value will add an additional column to the transformed dataset.
+|AzureDateFormat|Microsoft Azure Settings|CloudFormation, Terraform|The date format used within your Azure cost export. To quickly determine this, open an Azure cost export CSV file and look for the date format.|
+|AzureFolderPath|Microsoft Azure Settings|CloudFormation, Terraform|The path to your Azure cost export folder. We don't need the storage account name or the container name. Take in the cloud formation setup for an example. This is super important!|
+|AzureTags|Microsoft Azure Settings|CloudFormation, Terraform|Enter Azure tag names to expose them as data fields in the QuickSight dashboard. Each value will add an additional column to the transformed dataset.
 |AzureCopySchedule|Data Copy Settings|CloudFormation, Terraform|Used to schedule the Azure data pull. It uses a Cron expression, more information [here.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html)|
 |GlueCopySchedule|Data Copy Settings|CloudFormation, Terraform|Used to schedule the Glue job which transforms data allowing it to be queried by Athena. It uses a Cron expression, more information [here.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html). The Glue transform should be scheduled to run after the Azure data pull completes.|
-|EnableDuplicationRemoval|Data Copy Settings|CloudFormation|Azure produces a single CSV file each day with month-to-date usage data. Lambda function 08 deduplicates the CSV file, passing only unique entries for Glue processing.|
 |BlobToS3SyncStartDate|Data Copy Settings|CloudFormation, Terraform|Used to define what Azure files are copied across for initial processing. Setting this value to 20200201 Will copy all files modified on and after February 1st 2020. Typically we want to copy all files on the first run, so set this to the date of the moon landing or something similar.|
 |PartitionSize|Advanced Settings|CloudFormation, Terraform|**Experimental**. Do not use.|
 |MaxPartitionsPerFile|Advanced Settings|CloudFormation, Terraform|**Experimental**. Do not use.|
@@ -114,6 +131,6 @@ Parameters allow us to configure the deployment. Each parameter has a descriptio
 
 {{% /expand%}}
 
-Ok we're all setup, lets move onto the next section and run a manual pull of data.
+Ok we're all setup, lets move onto the next section to deploy our visuals.
 
 {{< prev_next_button link_prev_url="../1_solution_design/" link_next_url="../3_common_tasks/" />}}

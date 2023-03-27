@@ -49,6 +49,10 @@ Nice work, all resources have been deleted. Please visit us again sometime soon 
 ### Terraform Clean Up
 {{%expand "Click to expand" %}}
 
+### CID-CMD Clean Up
+{{%expand "Click to expand" %}}
+
+
 TBC
 
 Nice work, all resources have been deleted. Please visit us again sometime soon :)

@@ -11,16 +11,11 @@ Now that you have deployed the solution lets perform some common tasks.
 ### Manual Pull of Data
 {{%expand "Click to expand" %}}
 
-Azure cost 
+You may want
 
 {{% /expand%}}
 
 ### Changing Microsoft Agreement type
-{{%expand "Click to expand" %}}
-
-{{% /expand%}}
-
-### Creating New Visuals
 {{%expand "Click to expand" %}}
 
 {{% /expand%}}
@@ -30,6 +25,9 @@ Azure cost
 
 {{% /expand%}}
 
+### Creating New Visuals
+{{%expand "Click to expand" %}}
 
+{{% /expand%}}
 
 {{< prev_next_button link_prev_url="../2_setup/" link_next_url="../4_clean_up/" />}}
