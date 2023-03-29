@@ -16,11 +16,9 @@ Once you finish the lab, follow the instructions below to remove all resources.
 {{%expand "Click to expand" %}}
 
 1. Before we delete the CloudFormation stack, let's delete the S3 bucket. Browse to Amazon S3
-
 ![Images/cidazure-cleanup-cfn-s3](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3.png?width=1000px)
 
-2. Open the S3 bucket created during the deployment and check it's contents. You may wish to retain the processed CSV files for future use. Remember each time they are pulled, Azure data egress charges apply. If you wish to retain the files move the *azurecidprocessed* folder to another S3 bucket.
-
+2. Open the S3 bucket created during the deployment and check it's contents. You may wish to retain the processed CSV files for future use. Remember Azure data egress charges apply each time they are pulled. If you wish to retain the files move the *azurecidprocessed* folder to another S3 bucket.
 ![Images/cidazure-cleanup-cfn-s3move](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3move.png?width=1000px)
 
 3. When you are ready, select the S3 bucket created by your deployment and click **Empty**
@@ -34,8 +32,10 @@ Once you finish the lab, follow the instructions below to remove all resources.
 6. Browse to the CloudFormation service.
 ![Images/cidazure-setup-cfn-browse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-browse.png?width=1000px)
 
-7. Select the Stack and click **Delete**. Acknowledge your action and click **Delete Stack**
-![Images/cidazure-cleanup-cfn-delete](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-delete.png?width=1000px)
+7. If you plan to redeploy, take a copy of the parameters tab before we delete.
+![Images/cidazure-cleanup-cfn-parameters](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-parameters.png?width=1000px)
+
+7. Once you're ready, click **Delete**. Acknowledge your action and click **Delete Stack**
 
 8. Click into the Stack and click the **Events** tab to view progress.
 ![Images/cidazure-cleanup-cfn-s3deleteprog](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3deleteprog.png?width=1000px)

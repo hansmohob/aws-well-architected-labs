@@ -78,8 +78,8 @@ All resources created by the automated deployment follow a standard naming patte
 
 As with most rules, there are a few exceptions.
 
-1. If you deploy the solution with CloudFormation your S3 bucket will be named **stack name**-s3bucket-**unique id**
-2. System Center parameters start with **cidazure-var**.
+1. If you deploy the solution using CloudFormation your S3 bucket will be named **stack name**-s3bucket-**unique id**
+2. Systems Manager parameters start with **cidazure-var**.
 
 |AWS Resource ID|Description|
 |-|-|
@@ -105,7 +105,7 @@ As with most rules, there are a few exceptions.
 ### High Level Diagram
 
 The diagram below shows you how AWS service interact and how AWS communicates with Azure. Arrows indicate the direction of invocation. Notice that we haven't included Cloudwatch and KMS, which are used throughout the solution.
-![Images/cidazure-midlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-midlevel.png)
+![Images/cidazure-midlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-midlevel.png?width=1000px)
 
 |Step|Description|
 |-|-|
@@ -115,7 +115,7 @@ The diagram below shows you how AWS service interact and how AWS communicates wi
 |4|Lambda functions requests an OAUTH token from Azure Active Directory over HTTPS.|
 |5|Lambda functions interact with Azure blob storage over HTTPS.|
 |6|Lambda functions download CSV files to the S3 *azurecidraw* folder. It's not really a folder, but let's pretend it is!|
-|7|A Glue schedule triggers the Glue job|
+|7|A Glue schedule triggers the Glue job.|
 |8|The Glue job queries System Manager Parameter store to get values used by the job. E.g. S3 bucket name. This is part of CloudFormation deployments only.|
 |9|The Glue job loads data from the S3 *azurecidraw* folder.|
 |10|The Glue job adds new columns, changes data field types and transforms the data from CSV to Parquet format. The Parquet files are stored in the S3 *azurecidparquet* folder.|
@@ -127,10 +127,10 @@ The diagram below shows you how AWS service interact and how AWS communicates wi
 ### Lambda blob copy stack 
 
 Let's zoom in on the Lambda functions and SNS topics. Each function is a discrete piece of code that performs a specific function. The functions use SNS to talk to each other. All functions are written in Python.
-![Images/cidazure-lambda.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-lambda.png)
+![Images/cidazure-lambda.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-lambda.png?width=1000px)
 
 Lambda functions 04, 05 and 06 are used to download large files. They take advantage of Amazon S3's multipart download option to accelerate file transfer.
-![Images/cidazure-lambda-filesize.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-lambda-filesize.png)
+![Images/cidazure-lambda-filesize.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-lambda-filesize.png?width=1000px)
 
 ### Other Design Components
 
