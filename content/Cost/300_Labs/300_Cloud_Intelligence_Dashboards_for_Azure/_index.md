@@ -22,7 +22,7 @@ hidden: false
 We would love to hear your thoughts! Please drop us an [email](mailto:cloud-intelligence-dashboards@amazon.com) or raise an [issue.](/contributing/02_reportingbugs/) Got a great idea to improve this content? Head over to the [Contribution Guide.](/contributing/)
 
 ### Introduction
-Monitoring cloud usage is an important factor for all customers. Identifying areas for cost optimization starts with understanding cloud spend. Many customers use Amazon QuickSight and the [Cloud Intelligence Dashboards](/cost/200_labs/200_cloud_intelligence/) and want to use familiar tools to monitor cloud usage across multiple cloud providers. In this lab we show you how you can build a solution to view your Microsoft Azure usage data in Amazon QuickSight. You will build a data pipeline which securely pulls Azure cost management data to AWS. Your QuickSight dashboard will automatically refresh each day to show useful insights. You will need to be familiar with the AWS console, but we'll walk you through the design and setup step by step. This solution does not provide an aggregated view of usage across AWS and Azure (yet).
+Monitoring cloud usage is an important factor for all customers. Identifying areas for cost optimization starts with understanding cloud spend. Many customers use Amazon QuickSight and the [Cloud Intelligence Dashboards](/cost/200_labs/200_cloud_intelligence/) and want to use familiar tools to monitor cloud usage across multiple cloud providers. In this lab we show you how you can build a solution to view your Microsoft Azure usage data in Amazon QuickSight. You will build a data pipeline which securely pulls Azure cost management data to AWS. Your QuickSight dashboard will automatically refresh, each day, to show useful insights. You will need to be familiar with the AWS console, but we'll walk you through the setup. This solution does not provide an aggregated view of usage across AWS and Azure (yet).
 
 ![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-1.png?width=1000px)
 
@@ -32,8 +32,8 @@ Monitoring cloud usage is an important factor for all customers. Identifying are
 
 * Understand the AWS services and their roles in the solution.
 * Deploy an ETL pipeline to pull Azure cost management data to an Amazon S3 bucket on a daily recurring schedule.
+* Run an initial manual pull of data.
 * Deploy a sample QuickSight dashboard to view your Azure usage data.
-* Run a manual pull of data.
 * Apply a basic set of dashboard customizations.
 
 ### Prerequisites
@@ -44,13 +44,13 @@ Monitoring cloud usage is an important factor for all customers. Identifying are
 4. An Azure Active Directory application and service principal. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)**Note down the *Application secret* which is only displayed during setup.**
 5. The service principle must be assigned *Storage Blob Data Contributor* and *Storage Queue Data Contributor* roles scoped to the Storage Account used in step 3. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/storage/blobs/assign-azure-role-data-access?tabs=portal)
 6. The Azure Active Directory application's *Application ID* and *Tenant ID*. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#sign-in-to-the-application)
-7. Microsoft Azure must be configured to export cost management data to the dedicated Azure storage container, used in step 3, on a daily recurring schedule. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-export-acm-data?tabs=azure-portal)
+7. Microsoft Azure must be configured to export cost management data to the dedicated Azure storage container used in step 3 on a daily recurring schedule. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-export-acm-data?tabs=azure-portal)
 
 {{% notice warning %}}
 Do not export data for Actual cost (Usage and Purchases) and Amortized cost (Usage and Purchases) to the same Azure storage container. Only one metric will work with this solution. 
 {{% /notice %}} 
 
-Once you've setup Azure, you will need the following information to start the lab:
+Once you've setup Azure, you'll have the following information and are ready to start the lab:
 
 - [x] Azure Application ID
 - [x] Azure Tenant ID
@@ -67,9 +67,7 @@ You'll need permissions to create all **AWS resources** shown below.
 
 ![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-highlevel.png)
 
-You'll also need to be able to deploy through **AWS CloudFormation** or **Hashicorp Terraform**. 
-
-<to complete>
+You'll also need permissions to deploy through **AWS CloudFormation** or **Hashicorp Terraform**. 
 
 ### Costs
 
@@ -81,7 +79,7 @@ Costs for this lab are broken down into the following components;
 
 ### Duration
 
-**1-2 hours** depending on your level of experience. We'll speed up implementation by providing deployment templates to automate the build.
+**1-2 hours** depending on your level of experience. We'll speed this up by providing deployment templates to automate the build.
 
 When you're ready to begin, click the button below and hold on to your hat!
 

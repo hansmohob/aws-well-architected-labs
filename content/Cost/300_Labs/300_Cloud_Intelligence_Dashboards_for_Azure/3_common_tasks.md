@@ -8,10 +8,17 @@ hidden: false
 
 Now that you have deployed the solution lets perform some common tasks. 
 
+### Creating New Visuals
+{{%expand "Click to expand" %}}
+
+{{% /expand%}}
+
 ### Changing Scheduled Times
 {{%expand "Click to expand" %}}
 
-The solution runs automatically at the scheduled times you set in your deployment parameters. To change these follow the instructions below.
+The solution runs automatically at the scheduled times you set in your deployment parameters. To change these you have a few options:
+
+1. Update the cloud
 
 1. Browse to Amazon Eventbridge. Under
 
@@ -27,17 +34,14 @@ The solution runs automatically at the scheduled times you set in your deploymen
 
 {{% /expand%}}
 
-### Creating New Visuals
+### Disabling Data Copy Process
 {{%expand "Click to expand" %}}
 
 {{% /expand%}}
+
+
 
 ### Manual Run After Initial Setup
-{{%expand "Click to expand" %}}
-
-{{% /expand%}}
-
-### Disabling Data Copy Process
 {{%expand "Click to expand" %}}
 
 {{% /expand%}}
