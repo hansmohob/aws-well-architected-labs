@@ -14,7 +14,6 @@ In this section we take a look under the hood to show you how the solution works
 
 ### AWS Services
 Let's take a look at the services we'll use and their roles within the design.
-
 ![Images/cidazure-lambda.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-services.png)
 
 **Amazon EventBridge**
@@ -75,14 +74,12 @@ continue - align to WAR.
 ### Naming Convention
 
 All resources created by the automated deployment follow a standard naming pattern. 
-
 ![Images/cidazure-naming.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-naming.png?width=1000px)
 
 As with most rules, there are a few exceptions.
 
 1. If you deploy the solution with CloudFormation your S3 bucket will be named **stack name**-s3bucket-**unique id**
 2. System Center parameters start with **cidazure-var**.
-
 
 |AWS Resource ID|Description|
 |-|-|
@@ -100,16 +97,14 @@ As with most rules, there are a few exceptions.
 |lmd|AWS Lambda function|
 |lml|AWS Lambda layer|
 |rgg|AWS Resource Group group|
+|smp|AWS Systems Manager Parameter Store parameter|
 |sms|AWS Secrets Manager secret |
 |sns|Amazon SNS topic|
 |sss|Amazon S3 bucket (Terraform only)|
 
-
-
 ### High Level Diagram
 
 The diagram below shows you how AWS service interact and how AWS communicates with Azure. Arrows indicate the direction of invocation. Notice that we haven't included Cloudwatch and KMS, which are used throughout the solution.
-
 ![Images/cidazure-midlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-midlevel.png)
 
 |Step|Description|
@@ -132,11 +127,9 @@ The diagram below shows you how AWS service interact and how AWS communicates wi
 ### Lambda blob copy stack 
 
 Let's zoom in on the Lambda functions and SNS topics. Each function is a discrete piece of code that performs a specific function. The functions use SNS to talk to each other. All functions are written in Python.
-
 ![Images/cidazure-lambda.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-lambda.png)
 
 Lambda functions 04, 05 and 06 are used to download large files. They take advantage of Amazon S3's multipart download option to accelerate file transfer.
-
 ![Images/cidazure-lambda-filesize.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-lambda-filesize.png)
 
 ### Other Design Components

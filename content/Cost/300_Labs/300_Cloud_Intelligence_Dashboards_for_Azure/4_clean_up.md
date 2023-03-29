@@ -7,7 +7,7 @@ hidden: false
 ---
 
 {{% notice note %}}
-It's best to delete the lab as soon as you have finished or you no longer require the solution. leaving it running will incur usage charges. Deleting resources that are no longer required is an important aspect of Cost Optimization!
+It's best to delete resources as soon as you have finished the lab or you no longer require the solution. leaving it running will incur usage charges. Deleting resources that are no longer required is an important aspect of Cost Optimization!
 {{% /notice %}} 
 
 Once you finish the lab, follow the instructions below to remove all resources.
@@ -44,14 +44,11 @@ Once you finish the lab, follow the instructions below to remove all resources.
 ![Images/cidazure-cleanup-cfn-s3deletecomp](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3deletecomp.png?width=1000px)
 
 Nice work, all resources have been deleted. Please visit us again sometime soon :)
+
 {{% /expand%}}
 
 ### Terraform Clean Up
 {{%expand "Click to expand" %}}
-
-### CID-CMD Clean Up
-{{%expand "Click to expand" %}}
-
 
 TBC
 
