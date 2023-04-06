@@ -33,7 +33,7 @@ If you encounter any errors with the tasks below, head over to the [Observabilit
 1. [Download](https://github.com/aws-samples/aws-data-pipelines-for-azure-storage/archive/refs/heads/main.zip) setup files and extract locally. The archive contains files listed below. **You don't need to extract individual files**.
 
 * **azure-arm-identity.zip** Lambda layer for Azure identity
-* **azure-arm-storage.zip** Lambda layer for Azure Storage
+* **azure-arm-storage.zip** Lambda layer for Azure storage
 * **cid-azure-gluejob-cfn.py** Glue python script
 * **cid-azure-lambda01.zip - cid-azure-lambda06.zip** Lambda function code. 
 * **cid-azure-stack.yaml** CloudFormation template.
@@ -61,7 +61,7 @@ If you encounter any errors with the tasks below, head over to the [Observabilit
 
 9. Fill in the **Microsoft Azure Settings** section. Refer to the [Parameters](#parameters) section for guidance.
 
-10. If you're having trouble identifying what you need for the **AzureFolderPath** parameter here's an example. In the screenshot below we would enter directory/* ![Images/cidazure-setup-cfn-azurefolder.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-azurefolder.png?width=400px)
+10. If you're having trouble identifying what you need for the **AzureFolderPath** parameter, here's an example. In the screenshot below we would enter directory/* Also note **this field is case sensitive** ![Images/cidazure-setup-cfn-azurefolder.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-azurefolder.png?width=400px)
 
 11. Fill in the **Data Copy Settings** section. Refer to the [Parameters](#parameters) section for guidance.
 
@@ -280,7 +280,7 @@ There are no constraints set on parameters. Some Parameters only exist for speci
 |AzureTenantID|Microsoft Azure Settings|CloudFormation, Terraform|Used by Lambda functions to request an OAUTH token. Get the Tenant ID from the Azure portal, refer to instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#sign-in-to-the-application)|
 |AzureSecretKey|Microsoft Azure Settings|CloudFormation, Terraform|Used by Lambda functions to request an OAUTH token. Get the value of the Application secret from the Azure portal, refer to instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#option-2-create-a-new-application-secret)|
 |AzureDateFormat|Microsoft Azure Settings|CloudFormation, Terraform|The date format used within your Azure cost export. To quickly determine this, open an Azure cost export CSV file and look for the date format.|
-|AzureFolderPath|Microsoft Azure Settings|CloudFormation, Terraform|The path to your Azure cost export folder. We don't need the storage account name or the container name. Take in the cloud formation setup for an example. This is super important!|
+|AzureFolderPath|Microsoft Azure Settings|CloudFormation, Terraform|The path to your Azure cost export folder. We don't need the storage account name or the container name. **This field is case sensitive**. This is super important!|
 |AzureTags|Microsoft Azure Settings|CloudFormation, Terraform|Enter Azure tag names to expose them as data fields in the QuickSight dashboard. Each value will add an additional column to the transformed dataset.
 |AzureCopySchedule|Data Copy Settings|CloudFormation, Terraform|Used to schedule the Azure data pull. It uses a Cron expression, more information [here.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html)|
 |GlueCopySchedule|Data Copy Settings|CloudFormation, Terraform|Used to schedule the Glue job which transforms data allowing it to be queried by Athena. It uses a Cron expression, more information [here.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html). The Glue transform should be scheduled to run after the Azure data pull completes.|

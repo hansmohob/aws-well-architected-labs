@@ -134,7 +134,7 @@ Lambda functions 04, 05 and 06 are used to download large files. They take advan
 
 ### Other Design Components
 
-* The S3 bucket folder hierarchy is really important. Things wont work if they are not where they are supposed to be. 
+* The S3 bucket folder hierarchy is really important. Things won't work if they are not where they are supposed to be. 
 * The Glue job uses a script written in pyspark. The script is stored in the *azurecidscripts* folder in a Terraform deployment and in the S3 artifacts bucket for a CloudFormation deployment.
 
 Now we have an understanding of the solution design, let’s build!
