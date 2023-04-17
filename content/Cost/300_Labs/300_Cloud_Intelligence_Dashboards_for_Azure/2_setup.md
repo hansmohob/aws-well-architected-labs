@@ -35,7 +35,8 @@ If you encounter any errors with the tasks below, head over to the [Observabilit
 * **azure-arm-identity.zip** Lambda layer for Azure identity
 * **azure-arm-storage.zip** Lambda layer for Azure storage
 * **cid-azure-gluejob-cfn.py** Glue python script
-* **cid-azure-lambda01.zip - cid-azure-lambda06.zip** Lambda function code. 
+* **cid-azure-lambda01.zip - cid-azure-lambda06.zip** Azure blob copy Lambda functions
+* **cid-azure-lambda07.zip** Impact tracking Lambda function
 * **cid-azure-stack.yaml** CloudFormation template.
 * **cid-azure-dashboard.yaml** Sample QuickSight dashboard
 
