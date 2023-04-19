@@ -8,9 +8,9 @@ hidden: false
 
 Now that you've deployed the solution let's perform some common tasks. 
 
-### Creating New Visuals and Filters
+### Creating new visuals and filters
 {{%expand "Click to expand" %}}
-No doubt you'll want to create your own awesome visuals to help you interpret information. This is pretty easy to achieve with Amazon QuickSight. Let's create a new visual based on an Azure tag. In our Example, we want to see environment spend over time.
+No doubt you'll want to create your own awesome visuals to help you interpret information. This is easy to achieve with Amazon QuickSight. Let's create a new visual based on an Azure tag. In our Example, we want to see environment spend over time.
 
 1. Head over to the **QuickSight** service and open the *AWSCIDforAzure* analysis.
 ![Images/cidazure-common-visual-quicksight](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-quicksight.png?width=500px)
@@ -60,51 +60,72 @@ Finally, let's create a filter to change the view on all visuals. We'll stick wi
 15. Close the filter blade. Click the 3 dots and select **Pin to top**
 ![Images/cidazure-common-visual-pinfilter](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-pinfilter.png?width=500px)
 
-16. We now have the ability to filter all visuals per tag, in this case environment. 
+16. We now have the ability to filter all visuals per tag.
 ![Images/cidazure-common-visual-filterfinish](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-filterfinish.png?width=1000px)
 
 Have a go at creating your own visuals. If you need help understanding the data fields, Microsoft provide documentation [here.](https://learn.microsoft.com/en-us/azure/cost-management-billing/automate/understand-usage-details-fields#list-of-fields-and-descriptions)
 
 {{% /expand%}}
 
-### Changing Scheduled Times
+### Changing scheduled times
 {{%expand "Click to expand" %}}
 
-The solution runs automatically at the scheduled times you set during deployment. There are two timers. One for the copy of data (Amazon EventBridge) and another for the processing of data (AWS Glue). If you need to change these follow the instructions below. 
+The solution runs automatically at the scheduled times you set during deployment. There are two timers. One for the copy of data (Amazon EventBridge) and another for the processing of data (AWS Glue). It's possible to change the timers on each service:
 
-{{% notice note %}}
-You can change the timers on each individual service, but we encourage you to update your deployment parameters. This will ensure these settings are kept when you need to update the solution.
-{{% /notice %}} 
+| | |
+|-|-|
+|![Images/cidazure-common-time-glue](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-time-glue.png?width=500px)|![Images/cidazure-common-time-eventbridge](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-time-eventbridge.png?width=500px)|
 
-#### Cloud Formation Deployment
+| | |
+|-|-|
 
+But we encourage you to update your deployment parameters. This will record your settings, making it easier to apply solution updates.
 
+If you need to change scheduled times follow the instructions below. 
 
-#### Terraform Deployment
+#### CloudFormation deployment
 
+1. Browse to the **CloudFormation** service.
+![Images/cidazure-setup-cfn-browse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-browse.png?width=1000px)
 
+2. Select your deployment stack and Click **Update**.
+![Images/cidazure-common-time-updatestack](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-time-updatestack.png?width=1000px)
 
-you have a few options:
+3. Select **Use current template** and click **Next**
+![Images/cidazure-common-time-selecttemplate](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-time-selecttemplate.png?width=1000px)
 
-1. Update the cloud
+4. Browse to **Data Copy Settings**, change the scheduled times and click **Next**
+![Images/cidazure-common-time-datasettings](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-time-datasettings.png?width=500px)
 
-1. Browse to Amazon Eventbridge. Under
+5. On the *Configure stack options* page, click **Next**
 
-2. In our example we used a customer code of *cid*
+6. Review the CloudFormation stack settings, check the box to acknowledge that AWS CloudFormation might create IAM resources with custom names and click **Submit**
+![Images/cidazure-setup-cfn-stackreview](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackreview.png?width=1000px)
 
-cidazure-common-visual-donut.png
+7. The CloudFormation stack will start to update. Click the refresh button to view progress.
 
+8. The update will run for a few minutes. When it’s finished, you’ll see a UPDATE_COMPLETE message.
+![Images/cidazure-common-time-updatedone](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-time-updatedone.png?width=1000px)
 
+You've now updated the scheduled times.
+
+#### Terraform deployment
+
+1. Update the Data Copy Settings section of terraform.tfvars
+![Images/cidazure-common-time-tfvars](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-time-tfvars.png?width=500px)
+
+2. Run `terraform apply -auto-approve`
+
+You've now updated the scheduled times.
 
 {{% /expand%}}
 
-
-### Adding Additional Tags
+### Adding additional tags
 {{%expand "Click to expand" %}}
-
+At some point you may wish to add additional tags. 
 {{% /expand%}}
 
-### Disabling Data Copy Process
+### Disabling the data copy process
 {{%expand "Click to expand" %}}
 
 There may be a time when you want to disable the Azure blob copy process. Perhaps there is a problem with the Azure cost export or you have an issue with the Cloud Intelligence Dashboard. Disabling the copy process stops the flow of data temporarily, giving you time to resolve issues without incurring Azure egress data charges.
@@ -129,7 +150,7 @@ To reenable the copy process, run through the steps above changing the *isactive
 
 {{% /expand%}}
 
-### Manual Pull of Data After Initial Setup
+### Manual pull of data after initial setup
 {{%expand "Click to expand" %}}
 
 At some point you may want to run a manual pull of data. This process is the same as [Step 2 Initial Manual Run](../2_setup/#step-2-initial-manual-run). You can control what data is copied by changing the *begindate* secret value.
@@ -158,7 +179,7 @@ The *begindate* value is automatically updated by Lambda functions each time dat
 
 {{% /expand%}}
 
-### Observability and Troubleshooting
+### Observability and troubleshooting
 {{%expand "Click to expand" %}}
 TBC
 

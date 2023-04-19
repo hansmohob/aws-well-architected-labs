@@ -71,7 +71,7 @@ If you encounter any errors with the tasks below, head over to the [Observabilit
 13. Configure Stack options. If you require a specific IAM role to deploy the template or need to add additional tags, you can do this here. Otherwise leave the settings as default. When you're ready click **Next**
 ![Images/cidazure-setup-cfn-stackoptions](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackoptions.png?width=1000px)
 
-14. Review the Cloudformation stack settings, check the box to **acknowledge that AWS CloudFormation might create IAM resources with custom names** and click **Submit**
+14. Review the CloudFormation stack settings, check the box to **acknowledge that AWS CloudFormation might create IAM resources with custom names** and click **Submit**
 ![Images/cidazure-setup-cfn-stackreview](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackreview.png?width=1000px)
 
 15. The CloudFormation stack will start to deploy. Click the **refresh** button to view progress. If you see a red status event, then something went wrong. Review the error, correct and try again.
