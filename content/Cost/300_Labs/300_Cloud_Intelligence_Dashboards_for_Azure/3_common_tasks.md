@@ -130,7 +130,7 @@ At some point you may wish to add additional tags.
 
 There may be a time when you want to disable the Azure blob copy process. Perhaps there is a problem with the Azure cost export or you have an issue with the Cloud Intelligence Dashboard. Disabling the copy process stops the flow of data temporarily, giving you time to resolve issues without incurring Azure egress data charges.
 
-1. Browse to AWS Secrets Manager and click on the Secret created by your deployment. In our example we used *cid* as the customer code and the resource id is *sms*
+1. Browse to AWS Secrets Manager and click on the Secret created by your deployment. In our example we used *cid* as the prefix code and the resource id is *sms*
 
 ![Images/cidazure-common-disable-secretsmanager](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-disable-secretsmanager.png?width=1000px)
 
@@ -155,7 +155,7 @@ To reenable the copy process, run through the steps above changing the *isactive
 
 At some point you may want to run a manual pull of data. This process is the same as [Step 2 Initial Manual Run](../2_setup/#step-2-initial-manual-run). You can control what data is copied by changing the *begindate* secret value.
 
-1. Browse to AWS Secrets Manager and click on the Secret created by your deployment. In our example we used *cid* as the customer code and the resource id is *sms*
+1. Browse to AWS Secrets Manager and click on the Secret created by your deployment. In our example we used *cid* as the prefix code and the resource id is *sms*
 
 ![Images/cidazure-common-disable-secretsmanager](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-disable-secretsmanager.png?width=1000px)
 
@@ -181,9 +181,21 @@ The *begindate* value is automatically updated by Lambda functions each time dat
 
 ### Observability and troubleshooting
 {{%expand "Click to expand" %}}
-TBC
+As part of the deployment we built a basic Amazon CloudWatch dashboard. You can use this to gain insights into the solution and troubleshoot issues. To access the dashboard follow the instructions below.
 
-If none of the options above helped please drop us an [email](mailto:cloud-intelligence-dashboards@amazon.com) 
+1. Browse to the Amazon CloudWatch service.
+![Images/cidazure-common-observe-browsecw](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-observe-browsecw.png?width=1000px)
+
+2. Select **Dashboards** on the left and click on the dashboard created by your deployment. In our example we used *cid* as the prefix code and the resource id is *cwd*
+![Images/cidazure-common-observe-selectcw](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-observe-selectcw.png?width=1000px)
+
+3. Take a look through the widgets to identify errors.
+![Images/cidazure-common-observe-cwdash](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-observe-cwdash.png?width=1000px)
+
+This is a very basic dashboard which helps us troubleshoot issues by aggregating logs and metrics into a single view.
+
+
+If you have a problem that you cannot resolve, please drop us an [email](mailto:cloud-intelligence-dashboards@amazon.com) 
 {{% /expand%}}
 
 ### Applying an update
