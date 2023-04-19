@@ -43,7 +43,7 @@ If you encounter any errors with the tasks below, head over to the [Observabilit
 2. Place the files in a new Amazon S3 bucket. CloudFormation will access these files during deployment. Don't use the name in the screenshot below, someone's probably already grabbed it and S3 bucket names need to be globally unique.
 ![Images/cidazure-setup-cfn-s3source](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-s3source.png?width=1000px)
 
-3. Click into **cid-azure-stack-yaml** and grab the Object URL. You'll need this a moment.
+3. Click into **cid-azure-stack-yaml** and grab the Object URL. You'll need this in a moment.
 ![Images/cidazure-setup-cfn-s3objecturl](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-s3objecturl.png?width=1000px)
 
 4. Browse to the **CloudFormation** service.
@@ -77,7 +77,7 @@ If you encounter any errors with the tasks below, head over to the [Observabilit
 15. The CloudFormation stack will start to deploy. Click the **refresh** button to view progress. If you see a red status event, then something went wrong. Review the error, correct and try again.
 ![Images/cidazure-setup-cfn-stackprogress](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackprogress.png?width=1000px)
 
-16. The deployment will run for a few minutes. Once deployment is complete, you'll see a *CREATE_COMPLETE* message.
+16. The deployment will run for a few minutes. When it's finished, you'll see a *CREATE_COMPLETE* message.
 ![Images/cidazure-setup-cfn-stackcomplete](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackcomplete.png?width=1000px)
 
 Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initial-manual-run)
@@ -89,9 +89,10 @@ Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initia
 1. [Download](https://github.com/aws-samples/aws-data-pipelines-for-azure-storage/archive/refs/heads/main.zip) setup files and extract locally. The archive contains files listed below. **You don't need to extract individual files**.
 
 * **azure-arm-identity.zip** Lambda layer for Azure identity
-* **azure-arm-storage.zip** Lambda layer for Azure Storage
+* **azure-arm-storage.zip** Lambda layer for Azure storage
 * **cid-azure-gluejob-cfn.py** Glue python script
-* **cid-azure-lambda01.zip - cid-azure-lambda06.zip** Lambda function code. 
+* **cid-azure-lambda01.zip - cid-azure-lambda06.zip** Azure blob copy Lambda functions
+* **cid-azure-lambda07.zip** Impact tracking Lambda function
 * **cid-azure-stack.yaml** CloudFormation template.
 * **cid-azure-dashboard.yaml** Sample QuickSight dashboard
 
@@ -101,7 +102,7 @@ Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initia
 
 ### Step 2 Initial Manual Run
 {{%expand "Click to expand" %}}
-The solution runs automatically at the scheduled times you set in your deployment parameters. When you first deploy you may want to visualize your data straight away. If you've had enough for today and want to stop, feel free to come back tomorrow, this part should complete automatically.
+The solution runs automatically at the scheduled times you set in your deployment parameters. If you've had enough for today and want to stop, feel free to come back tomorrow, this part should complete automatically. If you want to visualize your data right now then let's continue.
 
 As part of the deployment we created a Resource Group to organize our resources into a single view. This will help you identify resources that were created should you get stuck. To view the Resource Group, browse to the **AWS Resource Groups & Tag Editor** service.
 ![Images/cidazure-setup-manual-resourcegroup](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-resourcegroup.png?width=600px)
@@ -123,10 +124,10 @@ Follow the instructions below to start a manual run.
 5. You should receive an *Execution result: succeeded* message. 
 ![Images/cidazure-setup-manual-lambdasuccess](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdasuccess.png?width=1000px)
 
-6. Quickly head over to the **Amazon S3 bucket** created by your deployment. If you deployed via CloudFormation then your bucket will start with the stack name. If you deployed with Terraform the bucket will start with customer code, followed by *sss* as the resource ID. You should see files are already starting to appear under the *azurecidraw* folder.
+6. Head over to the **Amazon S3 bucket** created by your deployment. If you deployed via CloudFormation then your bucket will start with the stack name. If you deployed with Terraform the bucket will start with customer code, followed by *sss* as the resource ID. You should see files are already starting to appear under the *azurecidraw* folder.
 ![Images/cidazure-setup-manual-s3appear](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3appear.png?width=1000px)
 
-7. Now let's start the Glue job to transform the data. Head over to **AWS Glue** and click into **ETL jobs**
+7. Now let's start the Glue job to transform the data. Open the **AWS Glue** service and click into **ETL jobs**
 ![Images/cidazure-setup-manual-glue](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-glue.png?width=1000px)
 
 8. Select the Glue job created by your deployment. In our example we used *cid* as the customer code and the resource id is *glj*
@@ -160,6 +161,10 @@ First up we need to create our Amazon Athena view.
 
 3. Click the **Saved queries** tab and click the ID for the saved query created by your deployment.
 ![Images/cidazure-setup-dashboard-athenaquery](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenaquery.png?width=1000px)
+
+{{% notice note %}}
+Notice that the query creates a view of data for the past 6 months. You can fine tune this later if required.
+{{% /notice %}} 
 
 4. Click the **Run** button to run the query. Once complete a new Athena view will be created.
 ![Images/cidazure-setup-dashboard-athenarun](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenarun.png?width=1000px)
@@ -290,7 +295,8 @@ There are no constraints set on parameters. Some Parameters only exist for speci
 |MaxPartitionsPerFile|Advanced Settings|CloudFormation, Terraform|Experimental. **Do not use**.|
 |UseFullFilePath|Advanced Settings|CloudFormation, Terraform|Experimental. **Do not use**.|
 |Region|Regions and Availability Zones|Terraform|Sets the AWS region that AWS resources are deployed to.|
-
 {{% /expand%}}
+
+Once you've finished this section you will have a fully functioning solution. We are constantly making improvements, check in periodically to see what we've added.
 
 {{< prev_next_button link_prev_url="../1_solution_design/" link_next_url="../3_common_tasks/" />}}
