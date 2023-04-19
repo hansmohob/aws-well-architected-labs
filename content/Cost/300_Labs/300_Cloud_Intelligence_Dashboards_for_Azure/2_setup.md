@@ -112,7 +112,7 @@ Follow the instructions below to start a manual run.
 1. Browse to the **AWS Lambda** service.
 ![Images/cidazure-setup-manual-lambdabrowse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdabrowse.png?width=1000px)
 
-2. Search for the Lambda Functions created by your deployment. In our example we used *cid* as the customer code and the resource id is *lmd*
+2. Search for the Lambda Functions created by your deployment. In our example we used *cid* as the prefix code and the resource id is *lmd*
 ![Images/cidazure-setup-manual-lambdafind](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdafind.png?width=1000px)
 
 3. Click into **Lambda01**. Notice the python code is viewable here. Take a look around if you have time.
@@ -124,13 +124,13 @@ Follow the instructions below to start a manual run.
 5. You should receive an *Execution result: succeeded* message. 
 ![Images/cidazure-setup-manual-lambdasuccess](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdasuccess.png?width=1000px)
 
-6. Head over to the **Amazon S3 bucket** created by your deployment. If you deployed via CloudFormation then your bucket will start with the stack name. If you deployed with Terraform the bucket will start with customer code, followed by *sss* as the resource ID. You should see files are already starting to appear under the *azurecidraw* folder.
+6. Head over to the **Amazon S3 bucket** created by your deployment. If you deployed via CloudFormation then your bucket will start with the stack name. If you deployed with Terraform the bucket will start with prefix code, followed by *sss* as the resource ID. You should see files are already starting to appear under the *azurecidraw* folder.
 ![Images/cidazure-setup-manual-s3appear](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3appear.png?width=1000px)
 
 7. Now let's start the Glue job to transform the data. Open the **AWS Glue** service and click into **ETL jobs**
 ![Images/cidazure-setup-manual-glue](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-glue.png?width=1000px)
 
-8. Select the Glue job created by your deployment. In our example we used *cid* as the customer code and the resource id is *glj*
+8. Select the Glue job created by your deployment. In our example we used *cid* as the prefix code and the resource id is *glj*
 ![Images/cidazure-setup-manual-gluejob](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluejob.png?width=1000px)
 
 9. Take a look at the Glue script if you have time, you can make changes here to suit your needs. Click on the **Runs tab** and click the **Run** button. Your Glue job will execute.
@@ -156,7 +156,7 @@ First up we need to create our Amazon Athena view.
 1. Browse to the **Amazon Athena** service.
 ![Images/cidazure-setup-dashboard-athenabrowse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenabrowse.png?width=1000px)
 
-2. Select the **Athena Workgroup** and **Database** created by your deployment. In our example we used *cid* as the customer code.
+2. Select the **Athena Workgroup** and **Database** created by your deployment. In our example we used *cid* as the prefix code.
 ![Images/cidazure-setup-dashboard-athenaworkgroup](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenaworkgroup.png?width=1000px)
 
 3. Click the **Saved queries** tab and click the ID for the saved query created by your deployment.
@@ -214,10 +214,10 @@ OK, nice, we've got data, but need visuals! We've created a sample dashboard to 
 17. Start the import process by running `cid-cmd deploy --resources /tmp/CloudIntelligenceDashboardforAzure.yaml`. Use the arrow keys on your keyboard to select *cloudintelligencedashboardforazure* from the dashboard selection list.
 ![Images/cidazure-setup-dashboard-cidcmd2](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmd2.png?width=1000px)
 
-18. Select the **Athena WorkGroup** created by your deployment. In our example we used *cid* as the customer code and the resource id is *atw*
+18. Select the **Athena WorkGroup** created by your deployment. In our example we used *cid* as the prefix code and the resource id is *atw*
 ![Images/cidazure-setup-dashboard-cidcmd3](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmd3.png?width=600px)
 
-19. Select the **Glue database** created by your deployment. In our example we used *cid* as the customer code and the resource id is *gld*
+19. Select the **Glue database** created by your deployment. In our example we used *cid* as the prefix code and the resource id is *gld*
 ![Images/cidazure-setup-dashboard-cidcmd4](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmd4.png?width=600px)
 
 20. If all goes well you will receive the prestigious **Congratulations!** message. You can choose to share the dashboard with everyone in your QuickSight account or not.
