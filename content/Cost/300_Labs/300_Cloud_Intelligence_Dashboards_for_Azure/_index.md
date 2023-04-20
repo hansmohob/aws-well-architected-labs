@@ -36,7 +36,7 @@ Explore an example dashboard **TOCOMPLETE**
 ### Goals
 
 * Understand the AWS services and their roles in the solution.
-* Deploy an ETL pipeline to pull Azure cost management data to an Amazon S3 bucket on a daily recurring schedule.
+* Deploy an ETL pipeline to pull Azure cost management data to an Amazon Simple Storage Service (Amazon S3) bucket on a daily recurring schedule.
 * Run an initial manual pull of data.
 * Deploy a sample QuickSight dashboard to view Azure usage data.
 * Apply a basic set of dashboard customizations.
