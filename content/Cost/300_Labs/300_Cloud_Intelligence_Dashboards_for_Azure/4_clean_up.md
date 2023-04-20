@@ -21,12 +21,12 @@ Once you finish the lab, follow the instructions below to remove all resources.
 2. Open the S3 bucket created during the deployment and check it's contents. You may wish to retain the processed CSV files for future use. Remember Azure data egress charges apply each time they are pulled. If you wish to retain the files move the *azurecidprocessed* folder to another S3 bucket.
 ![Images/cidazure-cleanup-cfn-s3move](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3move.png?width=1000px)
 
-3. When you are ready, select the S3 bucket created by your deployment and click **Empty**
+3. When you are ready, select the S3 bucket created by the deployment and click **Empty**
 ![Images/cidazure-cleanup-cfn-s3empty](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3empty.png?width=1000px)
 
-4. Follow the on-screen instructions to confirm your action.
+4. Follow the on-screen instructions to confirm the action.
 
-5. Select the bucket again and click **Delete**. Following the on-screen instructions to confirm your action.
+5. Select the bucket again and click **Delete**. Following the on-screen instructions to confirm the action.
 ![Images/cidazure-cleanup-cfn-s3delete](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3delete.png?width=500px)
 
 6. Browse to the CloudFormation service.
@@ -35,7 +35,7 @@ Once you finish the lab, follow the instructions below to remove all resources.
 7. If you plan to redeploy, take a copy of the parameters tab before we delete.
 ![Images/cidazure-cleanup-cfn-parameters](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-parameters.png?width=1000px)
 
-7. Once you're ready, click **Delete**. Acknowledge your action and click **Delete Stack**
+7. Once you're ready, click **Delete**. Acknowledge the action and click **Delete Stack**
 
 8. Click into the Stack and click the **Events** tab to view progress.
 ![Images/cidazure-cleanup-cfn-s3deleteprog](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3deleteprog.png?width=1000px)
@@ -53,7 +53,7 @@ Nice work, all resources have been deleted. Please visit us again sometime soon 
 1. You may wish to retain the processed CSV files for future use. Remember Azure data egress charges apply each time they are pulled. If you wish to retain the files move the azurecidprocessed folder to another S3 bucket. 
 ![Images/cidazure-cleanup-cfn-s3move](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3move.png?width=1000px)
 
-2. When you're ready, run `terraform destroy` review your plan and confirm the action.
+2. When you're ready, run `terraform destroy` review the plan and confirm the action.
 
 Nice work, all resources have been deleted. Please visit us again sometime soon :)
 {{% /expand%}}

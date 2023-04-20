@@ -9,7 +9,7 @@ hidden: false
 We've provided a set of deployment templates to speed up the build. Once you complete the setup, we'll run through some basic operations to get you familiar with the solution and the underlying AWS services. If you want a deeper understanding of how the services work, take a look through the code. We've added comments to signpost whats happening in each section.
 
 {{% notice note %}}
-The solution you are about to deploy is an example. Use this lab and the accompanying code to design your own solution that meets your specific cost optimization needs.
+The solution you are about to deploy is an example. Use this lab and the accompanying code to design a solution that meets your specific cost optimization needs.
 {{% /notice %}} 
 
 Deployment is a three step process. 
@@ -105,7 +105,7 @@ Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initia
 
 3. If you're having trouble identifying what you need for the **AzureFolderPath** parameter, here's an example. In the screenshot below we would enter directory/* Also note **this field is case sensitive** ![Images/cidazure-setup-cfn-azurefolder.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-azurefolder.png?width=400px)
 
-4. Run `terraform apply`, review the plan and confirm your action.
+4. Run `terraform apply`, review the plan and confirm the action.
 
 Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initial-manual-run)
 
@@ -113,7 +113,7 @@ Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initia
 
 ### Step 2 Initial Manual Run
 {{%expand "Click to expand" %}}
-The solution runs automatically at the scheduled times you set in your deployment parameters. If you've had enough for today and want to stop, feel free to come back tomorrow, this part should complete automatically. If you want to visualize your data right now then let's continue.
+The solution runs automatically at the scheduled times you set in the deployments parameters. If you've had enough for today and want to stop, feel free to come back tomorrow, this part should complete automatically. If you want to visualize data straight away, then let's continue.
 
 As part of the deployment we created a Resource Group to organize our resources into a single view. This will help you identify resources that were created should you get stuck. To view the Resource Group, browse to the **AWS Resource Groups & Tag Editor** service.
 ![Images/cidazure-setup-manual-resourcegroup](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-resourcegroup.png?width=600px)
@@ -123,7 +123,7 @@ Follow the instructions below to start a manual run.
 1. Browse to the **AWS Lambda** service.
 ![Images/cidazure-setup-manual-lambdabrowse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdabrowse.png?width=1000px)
 
-2. Search for the Lambda Functions created by your deployment. In our example we used *cid* as the prefix code and the resource id is *lmd*
+2. Search for the Lambda Functions created by the deployment. In our example we used *cid* as the prefix code and the resource id is *lmd*
 ![Images/cidazure-setup-manual-lambdafind](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdafind.png?width=1000px)
 
 3. Click into **Lambda01**. Notice the python code is viewable here. Take a look around if you have time.
@@ -135,16 +135,16 @@ Follow the instructions below to start a manual run.
 5. You should receive an *Execution result: succeeded* message. 
 ![Images/cidazure-setup-manual-lambdasuccess](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdasuccess.png?width=1000px)
 
-6. Head over to the **Amazon S3 bucket** created by your deployment. If you deployed via CloudFormation then your bucket will start with the stack name. If you used Terraform the bucket will start with your prefix code, followed by *sss* as the resource ID. You should see files are already starting to appear under the *azurecidraw* folder. Wait until they've all appeared before moving onto the next step.
+6. Head over to the **Amazon S3 bucket** created by the deployment. If you deployed via CloudFormation then the S3 bucket will start with the stack name. If you used Terraform the bucket will start with a prefix code you defined, followed by *sss* as the resource ID. You should see files are already starting to appear under the *azurecidraw* folder. Wait until they've all appeared before moving onto the next step.
 ![Images/cidazure-setup-manual-s3appear](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3appear.png?width=1000px)
 
 7. Let's start the Glue job and transform the data. Open the **AWS Glue** service and click into **ETL jobs**
 ![Images/cidazure-setup-manual-glue](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-glue.png?width=1000px)
 
-8. Select the Glue job created by your deployment. In our example we used *cid* as the prefix code and the resource id is *glj*
+8. Select the Glue job created by the deployment. In our example we used *cid* as the prefix code and the resource id is *glj*
 ![Images/cidazure-setup-manual-gluejob](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluejob.png?width=1000px)
 
-9. Take a look at the Glue script if you have time, you can make changes here to suit your needs. Click on the **Runs tab** and click the **Run** button. Your Glue job will execute.
+9. Take a look at the Glue script if you have time, you can make changes here to suit your needs. Click on the **Runs tab** and click the **Run** button. The Glue job will execute.
 ![Images/cidazure-setups-manual-gluestart](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluestart.png?width=1000px)
 
 10. When the job completes the run status will change to *success*.
@@ -167,10 +167,10 @@ First up we need to create our Amazon Athena view.
 1. Browse to the **Amazon Athena** service.
 ![Images/cidazure-setup-dashboard-athenabrowse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenabrowse.png?width=1000px)
 
-2. Select the **Athena Workgroup** and **Database** created by your deployment. In our example we used *cid* as the prefix code.
+2. Select the **Athena Workgroup** and **Database** created by the deployment. In our example we used *cid* as the prefix code.
 ![Images/cidazure-setup-dashboard-athenaworkgroup](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenaworkgroup.png?width=1000px)
 
-3. Click the **Saved queries** tab and click the ID for the saved query created by your deployment.
+3. Click the **Saved queries** tab and click the ID for the saved query created by the deployment.
 ![Images/cidazure-setup-dashboard-athenaquery](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenaquery.png?width=1000px)
 
 {{% notice note %}}
@@ -188,13 +188,13 @@ Next, let's create our QuickSight dataset.
 6. Select **Athena** as the Data Source
 ![Images/cidazure-setup-dashboard-qsselectathena](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qsselectathena.png?width=1000px)
 
-7. Give the Data source a name, select the Athena workgroup created by your deployment and click **Create data source**.
+7. Give the Data source a name, select the Athena workgroup created by the deployment and click **Create data source**.
 ![Images/cidazure-setup-dashboard-qscreatedata](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qscreatedata.png?width=500px)
 
-8. Select the Glue database created by your deployment and relevant table which will end in *athena_view*. Then click **Edit/Preview data**
+8. Select the Glue database created by the deployment and relevant table which will end in *athena_view*. Then click **Edit/Preview data**
 ![Images/cidazure-setup-dashboard-qschoosetable](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qschoosetable.png?width=500px)
 
-9. Check your data appears along with any tag columns you specified. Once done, set the **Query mode to SPICE** and click **save & publish button**. We use Spice to minimize the loading times for visuals.
+9. Check data appears along with any tag columns you specified. Once done, set the **Query mode to SPICE** and click **save & publish button**. We use Spice to minimize the loading times for visuals.
 
 ![Images/cidazure-setup-dashboard-qssave](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qssave.png?width=1000px)
 
@@ -209,7 +209,7 @@ Let's set a daily refresh for Spice to make sure you have the most up-to-date vi
 12. Click the **ADD NEW SCHEDULE** button, Select **Full refresh** and click **SAVE**
 ![Images/cidazure-setup-dashboard-qsspiceschedule](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qsspiceschedule.png?width=500px)
 
-OK, nice, we've got data, but need visuals! We've created a sample dashboard to get you started. We'll use the [**cid-cmd**](https://github.com/aws-samples/aws-cudos-framework-deployment#demo) utility to import a template into your account. You'll need to run a few commands, but it's much quicker than other methods.
+OK, nice, we've got data, but need visuals! We've created a sample dashboard to get you started. We'll use the [**cid-cmd**](https://github.com/aws-samples/aws-cudos-framework-deployment#demo) utility to import a template into your AWS account. You'll need to run a few commands, but it's much quicker than other methods.
 
 13. Head back to the AWS Console, browse to the **AWS CloudShell** service.
 ![Images/cidazure-setup-dashboard-cloudshell](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cloudshell.png?width=1000px)
@@ -219,19 +219,19 @@ OK, nice, we've got data, but need visuals! We've created a sample dashboard to 
 15. Install cid-cmd using the following command: `pip3 install -U git+https://github.com/aws-samples/aws-cudos-framework-deployment.git@export-views`
 ![Images/cidazure-setup-dashboard-cidcmdinstall](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmdinstall.png?width=1000px)
 
-16. Run `aws s3 cp s3://SOURCEBUCKET/CloudIntelligenceDashboardforAzure.yaml  /tmp/CloudIntelligenceDashboardforAzure.yaml`. This will copy the QuickSight Dashboard template to CloudShell. Replace **SOURCEBUCKET** with the name of your Source Bucket. This is the name of the bucket you uploaded the source files to way back at the start of the lab. In the screenshot below our bucket is called *awscidforazuresourcecode*
+16. Run `aws s3 cp s3://SOURCEBUCKET/CloudIntelligenceDashboardforAzure.yaml  /tmp/CloudIntelligenceDashboardforAzure.yaml`. This will copy the QuickSight Dashboard template to CloudShell. Replace **SOURCEBUCKET** with the name of the Source Bucket. This is the name of the bucket you uploaded the source files to way back at the start of the lab. In the screenshot below our bucket is called *awscidforazuresourcecode*
 ![Images/cidazure-setup-dashboard-s3tocloudshell](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-s3tocloudshell.png?width=1000px)
 
 17. Start the import process by running `cid-cmd deploy --resources /tmp/CloudIntelligenceDashboardforAzure.yaml`. Use the arrow keys on your keyboard to select *cloudintelligencedashboardforazure* from the dashboard selection list.
 ![Images/cidazure-setup-dashboard-cidcmd2](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmd2.png?width=1000px)
 
-18. Select the **Athena WorkGroup** created by your deployment. In our example we used *cid* as the prefix code and the resource id is *atw*
+18. Select the **Athena WorkGroup** created by the deployment. In our example we used *cid* as the prefix code and the resource id is *atw*
 ![Images/cidazure-setup-dashboard-cidcmd3](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmd3.png?width=600px)
 
-19. Select the **Glue database** created by your deployment. In our example we used *cid* as the prefix code and the resource id is *gld*
+19. Select the **Glue database** created by the deployment. In our example we used *cid* as the prefix code and the resource id is *gld*
 ![Images/cidazure-setup-dashboard-cidcmd4](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmd4.png?width=600px)
 
-20. If all goes well you will receive the prestigious **Congratulations!** message. You can choose to share the dashboard with everyone in your QuickSight account or not.
+20. If all goes well you will receive the prestigious **Congratulations!** message. You can choose to share the dashboard with everyone in the QuickSight account or not.
 ![Images/cidazure-setup-dashboard-cidcmd5](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmd5.png?width=600px)
 
 Great we have a Dashboard, but we cant edit this and it's got no data. Lets save it as a QuickSight Analysis and change the dataset. 
@@ -245,7 +245,7 @@ Great we have a Dashboard, but we cant edit this and it's got no data. Lets save
 23. Toggle the **save as** switch to om and click **Go back to CloudIntelligenceDashboardforAzure**
 ![cidazure-setup-dashboard-saveas](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-saveas.png?width=1000px)
 
-24. Refresh your web browser and you should see a new *save as* icon appear, It looks like a floppy disk (if you remember those). 
+24. Refresh the web browser and you should see a new *save as* icon appear, It looks like a floppy disk (if you remember those). 
 ![cidazure-setup-dashboard-floppy](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-floppy.png?width=1000px)
 
 25. Click to save the dashboard as a QuickSight analysis. Give it a name and click **SAVE**
@@ -257,12 +257,12 @@ Great we have a Dashboard, but we cant edit this and it's got no data. Lets save
 27. Click the resulting dialogu box, click the 3 dots and **Replace**
 ![cidazure-setup-dashboard-pencil](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-pencil.png?width=600px)
 
-28. Choose your Athena view and click **Select**
+28. Choose the appropriate Athena view and click **Select**
 ![cidazure-setup-dashboard-replace](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-replace.png?width=600px)
 
 29. At this point you may need to do some field matching. We built the analysis using the MCA data schema. If you have an Enterprise Agreement map **CostinBillingCurrency** to **Cost**.
 
-30. Once you're done click the Update field mapping button, close the dataset dialogue box and marvel at your new analysis!
+30. Once you're done click the Update field mapping button, close the dataset dialogue box and marvel at the new analysis you have created!
 
 Just a few things to tidy up before we finish...
 
@@ -270,7 +270,7 @@ Just a few things to tidy up before we finish...
 
 32. Open Athena and delete the Template athena view.
 
-Nice work, you've completed the setup :). Check out the [Common Tasks](../3_common_tasks)section to customize your solution.
+Nice work, you've completed the setup :). Check out the [Common Tasks](../3_common_tasks)section to customize the solution.
 
 {{% /expand%}}
 
@@ -296,8 +296,8 @@ There are no constraints set on parameters. Some Parameters only exist for speci
 |AzureApplicationID|Microsoft Azure Settings|CloudFormation, Terraform|Used by Lambda functions to request an OAUTH token. Get the Application ID from the Azure portal, refer to instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#sign-in-to-the-application)|
 |AzureTenantID|Microsoft Azure Settings|CloudFormation, Terraform|Used by Lambda functions to request an OAUTH token. Get the Tenant ID from the Azure portal, refer to instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#sign-in-to-the-application)|
 |AzureSecretKey|Microsoft Azure Settings|CloudFormation, Terraform|Used by Lambda functions to request an OAUTH token. Get the value of the Application secret from the Azure portal, refer to instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#option-2-create-a-new-application-secret)|
-|AzureDateFormat|Microsoft Azure Settings|CloudFormation, Terraform|The date format used within your Azure cost export. To quickly determine this, open an Azure cost export CSV file and look for the date format.|
-|AzureFolderPath|Microsoft Azure Settings|CloudFormation, Terraform|The path to your Azure cost export folder. We don't need the storage account name or the container name. **This field is case sensitive**. This is super important!|
+|AzureDateFormat|Microsoft Azure Settings|CloudFormation, Terraform|The date format used within the Azure cost export. To quickly determine this, open an Azure cost export CSV file and look for the date format.|
+|AzureFolderPath|Microsoft Azure Settings|CloudFormation, Terraform|The path to the Azure cost export folder. We don't need the storage account name or the container name. **This field is case sensitive**. This is super important!|
 |AzureTags|Microsoft Azure Settings|CloudFormation, Terraform|Enter Azure tag names to expose them as data fields in the QuickSight dashboard. Each value will add an additional column to the transformed dataset.
 |AzureCopySchedule|Data Copy Settings|CloudFormation, Terraform|Used to schedule the Azure data pull. It uses a Cron expression, more information [here.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html)|
 |GlueCopySchedule|Data Copy Settings|CloudFormation, Terraform|Used to schedule the Glue job which transforms data allowing it to be queried by Athena. It uses a Cron expression, more information [here.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html). The Glue transform should be scheduled to run after the Azure data pull completes.|

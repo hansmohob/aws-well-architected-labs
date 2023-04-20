@@ -22,11 +22,11 @@ hidden: false
 We would love to hear your thoughts! Please drop us an [email](mailto:cloud-intelligence-dashboards@amazon.com) or raise an [issue.](/contributing/02_reportingbugs/) Got a great idea to improve this content? Head over to the [Contribution Guide.](/contributing/)
 
 ### Introduction
-Monitoring cloud usage is an important factor for all customers. Identifying areas for cost optimization starts with understanding cloud spend. Many customers use Amazon QuickSight and the [Cloud Intelligence Dashboards](/cost/200_labs/200_cloud_intelligence/) and want to use familiar tools to monitor cloud usage across multiple cloud providers. In this lab we show you how you can build a solution to view your Microsoft Azure usage data in Amazon QuickSight. You will build a data pipeline which securely pulls Azure cost management data to AWS. Your QuickSight dashboard will automatically refresh, each day, to show useful insights. You will need to be familiar with the AWS console, but we'll walk you through the setup. This solution does not provide an aggregated view of usage across AWS and Azure (yet).
+Monitoring cloud usage is an important factor for all customers. Identifying areas for cost optimization starts with understanding cloud spend. Many customers use Amazon QuickSight and the [Cloud Intelligence Dashboards](/cost/200_labs/200_cloud_intelligence/) and want to use familiar tools to monitor cloud usage across multiple cloud providers. In this lab we show you how you can build a solution to view Microsoft Azure usage data in Amazon QuickSight. You will build a data pipeline which securely pulls Azure cost management data to AWS. QuickSight dashboard will automatically refresh, each day, to show useful insights. You will need to be familiar with the AWS console, but we'll walk you through the setup. This solution does not provide an aggregated view of usage across AWS and Azure (yet).
 
 | | | | |
 |-|-|-|-|
-|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-1.png?width=300px)|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-2.png?width=300px)|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-3.png?width=300px)|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-4.png?width=300px)|
+|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-1.png?width=500px)|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-2.png?width=500px)|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-3.png?width=500px)|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-4.png?width=500px)|
 
 | | | | |
 |-|-|-|-|
@@ -38,7 +38,7 @@ Explore an example dashboard **TOCOMPLETE**
 * Understand the AWS services and their roles in the solution.
 * Deploy an ETL pipeline to pull Azure cost management data to an Amazon S3 bucket on a daily recurring schedule.
 * Run an initial manual pull of data.
-* Deploy a sample QuickSight dashboard to view your Azure usage data.
+* Deploy a sample QuickSight dashboard to view Azure usage data.
 * Apply a basic set of dashboard customizations.
 
 ### Prerequisites

@@ -78,7 +78,7 @@ All resources created by the automated deployment follow a standard naming patte
 
 As with most rules, there are a few exceptions.
 
-1. If you deploy the solution using CloudFormation your S3 bucket will be named **stack name**-s3bucket-**unique id**
+1. If you deploy the solution using CloudFormation, the S3 bucket will be named **stack name**-s3bucket-**unique id**
 2. Systems Manager parameters start with **cidazure-var**.
 
 |AWS Resource ID|Description|

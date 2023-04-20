@@ -27,7 +27,7 @@ No doubt you'll want to create your own awesome visuals to help you interpret in
 5. Drag *dateparsed* into the **X axis** and *costinbillingcurrency* or *cost* into **Value**.
 ![Images/cidazure-common-visual-fieldwell](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-fieldwell.png?width=1000px)
 
-6. Scroll down through your fields list. You'll notice a data field called *tag* this is the original column from the Azure cost export. If you specified Azure tags during deployment you'll see additional data fields prefixed with *tag-*
+6. Scroll down through the fields list. You'll notice a data field called *tag* this is the original column from the Azure cost export. If you specified Azure tags during deployment you'll see additional data fields prefixed with *tag-*
 ![Images/cidazure-common-visual-tagfields](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-tagfields.png?width=300px)
 
 7. In our example we're going to select *tag-environment* and drag it into the **Group/Color** field well. 
@@ -40,7 +40,7 @@ Tagging resources helps us drive accountability. It's an important part of cost 
 9. Select our new visual, click on the **Filter** icon and **Add Filter**.
 ![Images/cidazure-common-visual-filter](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-filter.png?width=500px)
 
-10. Choose your tag, in our case it's *tag-environment*. Click the 3 dots and select **Edit**.
+10. Choose an appropriate tag, in our case it's *tag-environment*. Click the 3 dots and select **Edit**.
 ![Images/cidazure-common-visual-configurefilter](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-configurefilter.png?width=500px)
 
 11. Change the filter to exclude *NULL* and click **Apply**.
@@ -51,7 +51,7 @@ Tagging resources helps us drive accountability. It's an important part of cost 
 
 Finally, let's create a filter to change the view on all visuals. We'll stick with *tag-environment*
 
-13. Click on any visual, click on the **Filter** icon and **Add Filter**. Select the tag your interested in. 
+13. Click on any visual, click on the **Filter** icon and **Add Filter**. Select the tag you're interested in. 
 ![cidazure-common-visual-allfilter](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-allfilter.png?width=1000px)
 
 14. Edit the filter as before, but this time in the *Applied to* box, select **All applicable visuals**. Leave the other settings as default and click **Apply**.
@@ -79,7 +79,7 @@ The solution runs automatically at the scheduled times you set during deployment
 | | |
 |-|-|
 
-Instead, we encourage you to update your deployment parameters. This will record your settings, making it easier to apply solution updates.
+Instead, we encourage you to update the deployment parameters. This will record settings, making it easier to apply solution updates.
 
 If you need to change scheduled times follow the instructions below. 
 
@@ -88,7 +88,7 @@ If you need to change scheduled times follow the instructions below.
 1. Browse to the **CloudFormation** service.
 ![Images/cidazure-setup-cfn-browse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-browse.png?width=1000px)
 
-2. Select your deployment stack and Click **Update**.
+2. Select the deployment stack and Click **Update**.
 ![Images/cidazure-common-time-updatestack](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-time-updatestack.png?width=1000px)
 
 3. Select **Use current template** and click **Next**
@@ -114,7 +114,7 @@ Scheduled times have now been updated.
 1. Update the *Data Copy Settings* section of terraform.tfvars
 ![Images/cidazure-common-time-tfvars](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-time-tfvars.png?width=1000px)
 
-2. Run `terraform apply` review the plan and confirm your action.
+2. Run `terraform apply` review the plan and confirm the action.
 
 Scheduled times have now been updated.
 
@@ -122,7 +122,7 @@ Scheduled times have now been updated.
 
 ### Adding additional tags
 {{%expand "Click to expand" %}}
-Use the instructions below to surface new Azure tags to your Amazon QuickSight dashboard. **New tags are not appended to data that has already been processed**. The only way to apply tags to existing data is to re-process all data. We show you how to do this in the [Re-processing data](#re-processing-data) Section.
+Use the instructions below to surface new Azure tags to the Amazon QuickSight dashboard. **New tags are not appended to data that has already been processed**. The only way to apply tags to existing data is to re-process all data. We show you how to do this in the [Re-processing data](#re-processing-data) Section.
 
 While it's possible to change tags directly in the console, we do not advise you do this.
 
@@ -134,14 +134,14 @@ While it's possible to change tags directly in the console, we do not advise you
 | | |
 |-|-|
 
-Instead, we encourage you to update your deployment parameters. This will record your settings, making it easier to apply solution updates.
+Instead, we encourage you to update the deployment parameters. This will record settings, making it easier to apply solution updates.
 
 #### CloudFormation deployment
 
 1. Browse to the **CloudFormation** service.
 ![Images/cidazure-setup-cfn-browse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-browse.png?width=1000px)
 
-2. Select your deployment stack and Click **Update**.
+2. Select the deployment stack and Click **Update**.
 ![Images/cidazure-common-time-updatestack](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-time-updatestack.png?width=1000px)
 
 3. Select **Use current template** and click **Next**
@@ -167,7 +167,7 @@ Tags have now been updated.
 1. Update the *Microsoft Azure Settings* section of terraform.tfvars
 ![Images/cidazure-common-tags-tfvars](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-tags-tfvars.png?width=1000px)
 
-2. Run `terraform apply` review the plan and confirm your action.
+2. Run `terraform apply` review the plan and confirm the action.
 
 Tags have now been updated.
 
@@ -178,7 +178,7 @@ Tags have now been updated.
 
 There may be a time when you want to disable the Azure blob copy process. Perhaps there is a problem with the Azure cost export or you have an issue with the Cloud Intelligence Dashboard. Disabling the copy process stops the flow of data temporarily, giving you time to resolve issues without incurring Azure egress data charges.
 
-1. Browse to AWS Secrets Manager and click on the Secret created by your deployment. In our example we used *cid* as the prefix code and the resource id is *sms*
+1. Browse to AWS Secrets Manager and click on the Secret created by the deployment. In our example we used *cid* as the prefix code and the resource id is *sms*
 ![Images/cidazure-common-disable-secretsmanager](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-disable-secretsmanager.png?width=1000px)
 
 2. Scroll down and click on the **Retrieve secret value** button.
@@ -199,7 +199,7 @@ To re-enable the copy process, run through the steps above changing the *isactiv
 {{%expand "Click to expand" %}}
 If you've added new Azure tags or you're redeploying the solution, you may need to re-process data. To reprocess data we delete any existing parquet files created by AWS Glue, move processed CSV files to the *azurecidraw* folder and run the Glue job. See instructions below.
 
-1. Browse to the **Amazon S3 bucket** created by your deployment. If you deployed using CloudFormation then your bucket will start with the stack name. If you used Terraform the bucket will start with your prefix code, followed by *sss* as the resource ID.
+1. Browse to the **Amazon S3 bucket** created by the deployment. If you deployed using CloudFormation then the bucket will start with the stack name. If you used Terraform the bucket will start with the prefix code you specified, followed by *sss* as the resource ID.
 ![Images/cidazure-common-reprocess-s3browse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-reprocess-s3browse.png?width=1000px)
 
 2. If you have an *azurecidparquet* folder, let's delete this. Select the folder and click **Delete**
@@ -207,7 +207,7 @@ If you've added new Azure tags or you're redeploying the solution, you may need 
 3. Confirm deletion and click **Delete objects**
 ![Images/cidazure-common-reprocess-s3delete](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-reprocess-s3delete.png?width=500px)
 
-4. Locate your processed data. If you're modifying an existing deployment, your processed data will be in a folder called *azurecidprocessed*. If you're redeploying the solution you should have taken a copy of the processed data and moved it to another S3 bucket. Once you locate the files, move them to a new folder called **azurecidraw** within your deployments S3 Bucket.
+4. Locate the processed data. If you're modifying an existing deployment, the processed data will be in a folder called *azurecidprocessed*. If you're redeploying the solution you should have taken a copy of the processed data and moved it to another S3 bucket. Once you locate the files, move them to a new folder called **azurecidraw** within the deployments S3 Bucket.
 
 | | |
 |-|-|
@@ -217,16 +217,16 @@ If you've added new Azure tags or you're redeploying the solution, you may need 
 | | |
 |-|-|
 
-5. When the move completes, head back to the S3 Bucket created by your deployment. You should have an *azurecidraw* folder. This folder will contain a folder structure and CSV files.
+5. When the move completes, head back to the S3 Bucket created by the deployment. You should have an *azurecidraw* folder. This folder will contain a folder structure and CSV files.
 ![Images/cidazure-common-reprocess-s3rawfolder](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-reprocess-s3rawfolder.png?width=1000px)
 
 6. You're ready to re-process the data by running the Glue job. Open the **AWS Glue** service and click into **ETL jobs**
 ![Images/cidazure-setup-manual-glue](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-glue.png?width=1000px)
 
-Select the Glue job created by your deployment. In our example we used *cid* as the prefix code and the resource id is *glj*
+Select the Glue job created by the deployment. In our example we used *cid* as the prefix code and the resource id is *glj*
 ![Images/cidazure-setup-manual-gluejob](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluejob.png?width=1000px)
 
-7. Click on the **Runs tab** and click the **Run** button. Your Glue job will execute.
+7. Click on the **Runs tab** and click the **Run** button. The Glue job will execute.
 ![Images/cidazure-setups-manual-gluestart](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluestart.png?width=1000px)
 
 8. When the job completes the run status will change to *success*.
@@ -238,7 +238,7 @@ Select the Glue job created by your deployment. In our example we used *cid* as 
 10. If you click into the *azurecidprocessed* folder you'll see data is partitioned by month.
 ![Images/cidazure-setup-manual-s3parquet](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3parquet.png?width=1000px)
 
-That's it, you've reprocessed your data, check your dashboard to see the results.
+That's it, you've reprocessed the data, check the QuickSight dashboard to see the results.
 
 {{% /expand%}}
 
@@ -247,7 +247,7 @@ That's it, you've reprocessed your data, check your dashboard to see the results
 
 At some point you may want to run a manual pull of data. This process is the same as [Step 2 Initial Manual Run](../2_setup/#step-2-initial-manual-run). You can control what data is copied by changing the *begindate* secret value.
 
-1. Browse to AWS Secrets Manager and click on the Secret created by your deployment. In our example we used *cid* as the prefix code and the resource id is *sms*
+1. Browse to AWS Secrets Manager and click on the Secret created by the deployment. In our example we used *cid* as the prefix code and the resource id is *sms*
 ![Images/cidazure-common-disable-secretsmanager](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-disable-secretsmanager.png?width=1000px)
 
 2. Scroll down and click on the **Retrieve secret value** button.
@@ -275,11 +275,15 @@ As part of the deployment we built a basic Amazon CloudWatch dashboard. You can 
 1. Browse to the Amazon CloudWatch service.
 ![Images/cidazure-common-observe-browsecw](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-observe-browsecw.png?width=1000px)
 
-2. Select **Dashboards** on the left and click on the dashboard created by your deployment. In our example we used *cid* as the prefix code and the resource id is *cwd*
+2. Select **Dashboards** on the left and click on the dashboard created by the deployment. In our example we used *cid* as the prefix code and the resource id is *cwd*
 ![Images/cidazure-common-observe-selectcw](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-observe-selectcw.png?width=1000px)
 
 3. Take a look through the widgets to identify errors.
 ![Images/cidazure-common-observe-cwdash](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-observe-cwdash.png?width=1000px)
+
+Here's an example where the Azure App Secret is incorrect:
+
+![Images/cidazure-common-observe-autherror](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-observe-autherror.png?width=1000px)
 
 This is a very basic dashboard which helps us troubleshoot issues by aggregating logs and metrics into a single view.
 
