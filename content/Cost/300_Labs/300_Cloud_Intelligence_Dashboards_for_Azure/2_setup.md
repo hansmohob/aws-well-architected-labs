@@ -88,13 +88,24 @@ Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initia
 
 1. [Download](https://github.com/aws-samples/aws-data-pipelines-for-azure-storage/archive/refs/heads/main.zip) setup files and extract locally. The archive contains files listed below. **You don't need to extract individual files**.
 
-* **azure-arm-identity.zip** Lambda layer for Azure identity
-* **azure-arm-storage.zip** Lambda layer for Azure storage
-* **cid-azure-gluejob-cfn.py** Glue python script
-* **cid-azure-lambda01.zip - cid-azure-lambda06.zip** Azure blob copy Lambda functions
-* **cid-azure-lambda07.zip** Impact tracking Lambda function
-* **cid-azure-stack.yaml** CloudFormation template.
+* **cid-azure-aws-lambda/azure-arm-identity.zip** Lambda layer for Azure identity
+* **cid-azure-aws-lambda/azure-arm-storage.zip** Lambda layer for Azure storage
+* **cid-azure-aws-lambda/cid-azure-blobcopy-xxx.py** Azure blob copy Lambda functions
+* **cid-azure-aws-glue_schema.json** Glue python script
+* **cid-azure-aws.tf** Terraform template for AWS resources
+* **main.tf** AWS provider template
+* **variables.tf** Terraform variables file for AWS resources
+* **terraform.tfvars** Terraform parameters file
 * **cid-azure-dashboard.yaml** Sample QuickSight dashboard
+* **cid-azure-azure.tf** Example Terraform template for Azure resources
+* **main-azure.tf** Example Azure provider template
+* **variables-azure.tf.tf** Example Terraform variables file for Azure resources
+
+2. Edit *terraform.tfvars*. Refer to the Parameters section for guidance
+
+3. If you're having trouble identifying what you need for the **AzureFolderPath** parameter, here's an example. In the screenshot below we would enter directory/* Also note **this field is case sensitive** ![Images/cidazure-setup-cfn-azurefolder.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-azurefolder.png?width=400px)
+
+4. Run `terraform apply`, review the plan and confirm your action.
 
 Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initial-manual-run)
 
@@ -124,10 +135,10 @@ Follow the instructions below to start a manual run.
 5. You should receive an *Execution result: succeeded* message. 
 ![Images/cidazure-setup-manual-lambdasuccess](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdasuccess.png?width=1000px)
 
-6. Head over to the **Amazon S3 bucket** created by your deployment. If you deployed via CloudFormation then your bucket will start with the stack name. If you deployed with Terraform the bucket will start with prefix code, followed by *sss* as the resource ID. You should see files are already starting to appear under the *azurecidraw* folder.
+6. Head over to the **Amazon S3 bucket** created by your deployment. If you deployed via CloudFormation then your bucket will start with the stack name. If you used Terraform the bucket will start with your prefix code, followed by *sss* as the resource ID. You should see files are already starting to appear under the *azurecidraw* folder. Wait until they've all appeared before moving onto the next step.
 ![Images/cidazure-setup-manual-s3appear](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3appear.png?width=1000px)
 
-7. Now let's start the Glue job to transform the data. Open the **AWS Glue** service and click into **ETL jobs**
+7. Let's start the Glue job and transform the data. Open the **AWS Glue** service and click into **ETL jobs**
 ![Images/cidazure-setup-manual-glue](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-glue.png?width=1000px)
 
 8. Select the Glue job created by your deployment. In our example we used *cid* as the prefix code and the resource id is *glj*
@@ -139,7 +150,7 @@ Follow the instructions below to start a manual run.
 10. When the job completes the run status will change to *success*.
 ![Images/cidazure-setup-manual-gluesuccess](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluesuccess.png?width=1000px)
 
-11. Now let's head back over to the same **Amazon S3 bucket** you accessed earlier. Two new folder should have appeared. *azurecidparquet* contains parquet versions of the original CSV files. The orginal CSV files have moved to the *azurecidprocessed* folder and the *azurecidraw* folder has been deleted.
+11. Now let's head back over to the same **Amazon S3 bucket** you accessed earlier. Two new folder should have appeared. *azurecidparquet* contains parquet versions of the original CSV files. The original CSV files have moved to the *azurecidprocessed* folder and the *azurecidraw* folder has been deleted.
 ![Images/cidazure-setup-manual-s3processed](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3processed.png?width=1000px)
 
 12. If you click into the *azurecidprocessed* folder you'll see data is partitioned by month.

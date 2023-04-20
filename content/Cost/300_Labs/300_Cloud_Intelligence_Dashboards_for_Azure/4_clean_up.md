@@ -7,7 +7,7 @@ hidden: false
 ---
 
 {{% notice note %}}
-It's best to delete resources as soon as you have finished the lab or you no longer require the solution. leaving it running will incur usage charges. Deleting resources that are no longer required is an important aspect of Cost Optimization!
+It's best to delete resources as soon as you have finished the lab or you no longer require the solution. leaving it running will incur usage charges. Deleting resources that are no longer required is an important part of Cost Optimization!
 {{% /notice %}} 
 
 Once you finish the lab, follow the instructions below to remove all resources.
@@ -50,11 +50,14 @@ Nice work, all resources have been deleted. Please visit us again sometime soon 
 ### Terraform Clean Up
 {{%expand "Click to expand" %}}
 
-TBC
+1. You may wish to retain the processed CSV files for future use. Remember Azure data egress charges apply each time they are pulled. If you wish to retain the files move the azurecidprocessed folder to another S3 bucket. 
+![Images/cidazure-cleanup-cfn-s3move](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3move.png?width=1000px)
+
+2. When you're ready, run `terraform destroy` review your plan and confirm the action.
 
 Nice work, all resources have been deleted. Please visit us again sometime soon :)
 {{% /expand%}}
 
-We hope you enjoyed this lab and thankyou for your time. We would love to hear your thoughts! Please drop us an [email](mailto:cloud-intelligence-dashboards@amazon.com) or raise an [issue.](/contributing/02_reportingbugs/) Got a great idea to improve this content? Head over to the [Contribution Guide.](/contributing/)
+Thanks for your time, we hope you enjoyed this lab. We would love to hear your thoughts! Please drop us an [email](mailto:cloud-intelligence-dashboards@amazon.com) or raise an [issue.](/contributing/02_reportingbugs/) Got a great idea to improve this content? Head over to the [Contribution Guide.](/contributing/)
 
 {{< prev_next_button link_prev_url="../3_common_tasks/"  title="Congratulations!" final_step="true" >}}

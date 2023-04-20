@@ -31,7 +31,7 @@ Monitoring cloud usage is an important factor for all customers. Identifying are
 | | | | |
 |-|-|-|-|
 
-
+Explore an example dashboard **TOCOMPLETE**
 
 ### Goals
 
