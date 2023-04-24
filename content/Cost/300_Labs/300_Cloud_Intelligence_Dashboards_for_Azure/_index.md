@@ -26,7 +26,7 @@ Monitoring cloud usage is an important factor for all customers. Identifying are
 
 | | | | |
 |-|-|-|-|
-|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-1.png?width=500px)|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-2.png?width=500px)|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-3.png?width=500px)|![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-4.png?width=500px)|
+|![Images/cidazure-highlevel](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-1.png?width=500px)|![Images/cidazure-highlevel](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-2.png?width=500px)|![Images/cidazure-highlevel](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-3.png?width=500px)|![Images/cidazure-highlevel](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-dashboard-4.png?width=500px)|
 
 | | | | |
 |-|-|-|-|

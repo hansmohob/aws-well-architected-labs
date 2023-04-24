@@ -163,115 +163,62 @@ Awesome! You've completed the manual run, let's move onto [Dashboard Deployment.
 ### Step 3 Dashboard Deployment
 {{%expand "Click to expand" %}}
 
-First we need to create an Amazon Athena view.
+We've created a sample dashboard to get you started. We'll use the [**cid-cmd**](https://github.com/aws-samples/aws-cudos-framework-deployment#demo) utility to set this up. You'll need to run a few commands, but it's much quicker than other methods.
 
-1. Browse to the **Amazon Athena** service.
-![Images/cidazure-setup-dashboard-athenabrowse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenabrowse.png?width=1000px)
-
-2. Select the **Athena Workgroup** and **Database** created by the deployment. In our example we used *cid* as the prefix code.
-![Images/cidazure-setup-dashboard-athenaworkgroup](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenaworkgroup.png?width=1000px)
-
-3. Click the **Saved queries** tab and click the ID for the saved query created by the deployment.
-![Images/cidazure-setup-dashboard-athenaquery](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenaquery.png?width=1000px)
-
-{{% notice note %}}
-Notice that the query creates a view of data for the past 6 months. You can fine tune this later if required.
-{{% /notice %}} 
-
-4. Click the **Run** button to run the query. Once complete a new Athena view will be created.
-![Images/cidazure-setup-dashboard-athenarun](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenarun.png?width=1000px)
-
-Next, let's create our QuickSight dataset.
-
-5. Head over to the **QuickSight** service and select **Datasets**. Click the **New dataset** button
-![Images/cidazure-setup-dashboard-qsnewdataset](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qsnewdataset.png?width=1000px)
-
-6. Select **Athena** as the Data Source
-![Images/cidazure-setup-dashboard-qsselectathena](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qsselectathena.png?width=1000px)
-
-7. Give the Data source a name, select the Athena workgroup created by the deployment and click **Create data source**.
-![Images/cidazure-setup-dashboard-qscreatedata](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qscreatedata.png?width=500px)
-
-8. Select the AWS Glue database created by the deployment and relevant table which will end in *athena_view*. Then click **Edit/Preview data**
-![Images/cidazure-setup-dashboard-qschoosetable](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qschoosetable.png?width=500px)
-
-9. Check data appears along with any tag columns you specified. Once done, set the **Query mode to SPICE** and click **save & publish button**. We use Spice to minimize the loading times for visuals.
-
-![Images/cidazure-setup-dashboard-qssave](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qssave.png?width=1000px)
-
-Let's set a daily refresh for Spice to make sure you have the most up-to-date visualization.
-
-10. Click the QuickSight icon in the top left to get back to the main menu. Select **Datasets** 
-![Images/cidazure-setup-dashboard-qsstartspice](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qsstartspice.png?width=1000px)
-
-11. Click the dataset you just created, then click the **Refresh** tab. 
-![Images/cidazure-setup-dashboard-qsspicerefresh](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qsspicerefresh.png?width=1000px)
-
-12. Click the **ADD NEW SCHEDULE** button, Select **Full refresh** and click **SAVE**
-![Images/cidazure-setup-dashboard-qsspiceschedule](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qsspiceschedule.png?width=500px)
-
-OK, nice, we've got data, but need visuals! We've created a sample dashboard to get you started. We'll use the [**cid-cmd**](https://github.com/aws-samples/aws-cudos-framework-deployment#demo) utility to import a template into your AWS account. You'll need to run a few commands, but it's much quicker than other methods.
-
-13. Head back to the AWS Console, browse to the **AWS CloudShell** service.
+1. In the AWS Console, browse to the **AWS CloudShell** service.
 ![Images/cidazure-setup-dashboard-cloudshell](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cloudshell.png?width=1000px)
 
-14. Wait until you see a command prompt. Install the latest pip package by running the following command: `python3 -m ensurepip --upgrade`
+2. Wait until you see a command prompt. Install the latest pip package by running the following command: `/usr/bin/python3 -m pip install --upgrade pip`
+![Images/cidazure-setup-dashboard-installpip](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-installpip.png?width=1000px)
 
-15. Install cid-cmd using the following command: `pip3 install -U git+https://github.com/aws-samples/aws-cudos-framework-deployment.git@prefixes`
+3. Install cid-cmd using the following command: `pip3 install -U git+https://github.com/aws-samples/aws-cudos-framework-deployment.git@prefixes`
 ![Images/cidazure-setup-dashboard-cidcmdinstall](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmdinstall.png?width=1000px)
 
-16. Run `aws s3 cp s3://SOURCEBUCKET/CloudIntelligenceDashboardforAzure.yaml  /tmp/CloudIntelligenceDashboardforAzure.yaml`. This will copy the QuickSight Dashboard template to CloudShell. Replace **SOURCEBUCKET** with the name of the Source Bucket. This is the name of the bucket you uploaded the source files to way back at the start of the lab. In the screenshot below our bucket is called *awscidforazuresourcecode*
+4. Run `aws s3 cp s3://SOURCEBUCKET/cid-azure-dashboard.yaml cid-azure-dashboard.yaml`. This will copy the QuickSight Dashboard template to CloudShell. Replace **SOURCEBUCKET**. This is the name of the bucket you uploaded the source files to way back at the start of the lab. In the screenshot below our bucket is called *awscidforazuresourcecode*
 ![Images/cidazure-setup-dashboard-s3tocloudshell](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-s3tocloudshell.png?width=1000px)
 
-17. Start the import process by running `cid-cmd deploy --resources /tmp/CloudIntelligenceDashboardforAzure.yaml`. Use the arrow keys on your keyboard to select *cloudintelligencedashboardforazure* from the dashboard selection list.
-![Images/cidazure-setup-dashboard-cidcmd2](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmd2.png?width=1000px)
+5. We've created the next command for you. Let's retrieve it. Browse to **AWS Systems Manager**
+![Images/cidazure-setup-dashboard-ssmbrowse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-ssmbrowse.png?width=1000px)
 
-18. Select the **Athena WorkGroup** created by the deployment. In our example we used *cid* as the prefix code and the resource id is *atw*
-![Images/cidazure-setup-dashboard-cidcmd3](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmd3.png?width=600px)
+6. Click **Parameter Store**
+![Images/cidazure-setup-dashboard-ssmparameter](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-ssmparameter.png?width=1000px)
 
-19. Select the **Glue database** created by the deployment. In our example we used *cid* as the prefix code and the resource id is *gld*
-![Images/cidazure-setup-dashboard-cidcmd4](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmd4.png?width=600px)
+7. Click into the *cidazure-deploy_dashboard_command* parameter and copy the value.
+![Images/cidazure-setup-dashboard-ssmparametercopy](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-ssmparametercopy.png?width=1000px)
 
-20. If all goes well you will receive the prestigious **Congratulations!** message. You can choose to share the dashboard with everyone in the QuickSight account or not.
-![Images/cidazure-setup-dashboard-cidcmd5](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmd5.png?width=600px)
+8. Paste the command into AWS CloudShell and press Enter.
+![Images/cidazure-setup-dashboard-cidcmdrunssm](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmdrunssm.png?width=1000px)
 
-Great we have a Dashboard, but we cant edit this and it's got no data. Lets save it as a QuickSight Analysis and change the dataset. 
+9. Choose if you would like to share the dashboard with everyone in your QuickSight account and press enter. If all goes well you will receive the prestigious **Congratulations!** message.
 
-21.  Headback to QuickSight and click on Dashboards. You should see the Cloud Intelligence Dashboard for Azure. 
+10. The cid-cmd command created an Athena view, a QuickSight dataset and a QuickSight dashboard.
+| | | |
+|-|-|-|
+|![Images/cidazure-setup-dashboard-athenaview](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenaview.png?width=300px)|![Images/cidazure-setup-dashboard-qsdataset](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qsdataset.png?width=300px)|![Images/cidazure-setup-dashboard-qsdashboard](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qsdashboard.png?width=300px)|
+| | | |
+|-|-|-|
+
+11. Browse to Amazon **QuickSight**.
+![images/cidazure-setup-dashboard-browseqs](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-browseqs.png?width=1000px)
+
+12. Click on **Dashboards** and click into the new Azure Cost Dashboard. If the Spice dataset is updating, you won't see any data yet. Ignore this for now.
 ![cidazure-setup-dashboard-appears](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-appears.png?width=600px)
 
-22. Click on it to load. There is no data at present because it is connected to the wrong QuickSight dataset. Click the **Share** icon on the top right. Then click **Share dashboard**
+13. Click the **Share** icon on the top right. Then click **Share dashboard**.
 ![cidazure-setup-dashboard-share](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-share.png?width=1000px)
 
-23. Toggle the **save as** switch to om and click **Go back to CloudIntelligenceDashboardforAzure**
+14. Toggle the **save as** switch to on, confirm the action and click **Go back to Azure Cost Dashboard**.
 ![cidazure-setup-dashboard-saveas](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-saveas.png?width=1000px)
 
-24. Refresh the web browser and you should see a new *save as* icon appear, It looks like a floppy disk (if you remember those). 
+15. Refresh the web browser and you should see a new *save as* icon appear, It looks like a floppy disk (if you remember those).
 ![cidazure-setup-dashboard-floppy](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-floppy.png?width=1000px)
 
-25. Click to save the dashboard as a QuickSight analysis. Give it a name and click **SAVE**
+16. Click to save the dashboard as a QuickSight analysis. Give it a name and click **SAVE**.
 ![cidazure-setup-dashboard-saveanalysis](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-saveanalysis.png?width=600px)
 
-26. Click the **pencil icon** next to Dataset
-![cidazure-setup-dashboard-pencil](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-pencil.png?width=600px)
-
-27. Click the resulting dialogu box, click the 3 dots and **Replace**
-![cidazure-setup-dashboard-pencil](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-pencil.png?width=600px)
-
-28. Choose the appropriate Athena view and click **Select**
-![cidazure-setup-dashboard-replace](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-replace.png?width=600px)
-
-29. At this point you may need to do some field matching. We built the analysis using the MCA data schema. If you have an Enterprise Agreement map **CostinBillingCurrency** to **Cost**.
-
-30. Once you're done click the Update field mapping button, close the dataset dialogue box and marvel at the new analysis you have created!
-
-Just a few things to tidy up before we finish...
-
-31. Head back to Datasets and delete the Template dataset.
-
-32. Open Athena and delete the Template athena view.
-
 Nice work, you've completed the setup :). Check out the [Common Tasks](../3_common_tasks)section to customize the solution.
+![cidazure-setup-dashboard-finish](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-finish.png?width=1000px)
+
 
 {{% /expand%}}
 
@@ -309,6 +256,6 @@ There are no constraints set on parameters. Some Parameters only exist for speci
 |Region|Regions and Availability Zones|Terraform|Sets the AWS region that AWS resources are deployed to.|
 {{% /expand%}}
 
-Once you've finished this section you will have a fully functioning solution. We are constantly making improvements, check in periodically to see what we've added.
+Once you've completed this section you will have a fully functioning solution.
 
 {{< prev_next_button link_prev_url="../1_solution_design/" link_next_url="../3_common_tasks/" />}}
