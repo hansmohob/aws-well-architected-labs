@@ -6,44 +6,43 @@ weight: 20
 hidden: false
 ---
 
-We've provided a set of deployment templates to speed up the build. Once you complete the setup, we'll run through some basic operations to get you familiar with the solution and the underlying AWS services. If you want a deeper understanding of how the services work, take a look through the code. We've added comments to signpost whats happening in each section.
+We've provided a set of deployment templates to speed up the build. Once you complete the setup, we'll run through basic operations to get you familiar with the solution and the underlying AWS services. If you want a deeper understanding of how the services work, take a look through the code. We've added comments to signpost whats happening in each section.
 
 {{% notice note %}}
-The solution you are about to deploy is an example. Use this lab and the accompanying code to design a solution that meets your specific cost optimization needs.
+The solution you are about to deploy is an example. Use this lab and the accompanying code to create your own version that meets your specific cost optimization needs.
 {{% /notice %}} 
 
 Deployment is a three step process. 
 
 1. Deploy AWS services
 2. Perform a manual run to copy the first batch of data
-3. Setup QuickSight and import an example dashboard. 
+3. Setup Amazon QuickSight and import an example dashboard
 
 There are 2 **(Options)** to deploy AWS Services. Pick the one that suits you.
 
 1. [**AWS CloudFormation**](#step-1-option-1-cloudformation-deployment). We'll guide you through the setup step by step. You will need to setup Azure resources prior to deployment.
-2. [**Hashicorp Terraform**](#step-1-option-2-terraform-deployment). You will need to be familiar with Terraform and have an existing deployment pipeline. We include an example template showing you how to deploy Azure resources.
+2. [**Hashicorp Terraform**](#step-1-option-2-terraform-deployment). You will need to be familiar with Terraform and have an existing deployment pipeline. We include a sample template for Azure resources.
 
 {{% notice note %}}
-If you encounter any errors with the tasks below, head over to the [Observability and Troubleshooting](../3_common_tasks)section.
+If you encounter an error during the lab, head over to the [Observability and Troubleshooting](../3_common_tasks)section.
 {{% /notice %}}
 
 ### Step 1 (Option-1) CloudFormation Deployment
 {{%expand "Click to expand" %}}
 
-1. [Download](https://github.com/aws-samples/aws-data-pipelines-for-azure-storage/archive/refs/heads/main.zip) setup files and extract locally. The archive contains files listed below. **You don't need to extract individual files**.
+1. [Download](https://github.com/aws-samples/aws-data-pipelines-for-azure-storage/archive/refs/heads/main.zip) the source code and extract locally. The *CFN* folder contains files listed below. **You don't need to extract individual files**.
 
 * **azure-arm-identity.zip** Lambda layer for Azure identity
 * **azure-arm-storage.zip** Lambda layer for Azure storage
-* **cid-azure-gluejob-cfn.py** Glue python script
+* **cid-azure-gluejob-cfn.py** Glue job python script
 * **cid-azure-lambda01.zip - cid-azure-lambda06.zip** Azure blob copy Lambda functions
-* **cid-azure-lambda07.zip** Impact tracking Lambda function
 * **cid-azure-stack.yaml** CloudFormation template.
 * **cid-azure-dashboard.yaml** Sample QuickSight dashboard
 
-2. Place the files in a new Amazon S3 bucket. CloudFormation will access these files during deployment. Don't use the name in the screenshot below, someone's probably already grabbed it and S3 bucket names need to be globally unique.
+2. Place the files in a new Amazon S3 bucket. CloudFormation will access these during deployment. Don't use the name in the screenshot below, someone's already used it and Amazon S3 bucket names need to be globally unique.
 ![Images/cidazure-setup-cfn-s3source](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-s3source.png?width=1000px)
 
-3. Click into **cid-azure-stack-yaml** and grab the Object URL. You'll need this in a moment.
+3. Click into **cid-azure-stack-yaml** and copy the Object URL. You'll need this in a moment.
 ![Images/cidazure-setup-cfn-s3objecturl](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-s3objecturl.png?width=1000px)
 
 4. Browse to the **CloudFormation** service.
@@ -52,26 +51,27 @@ If you encounter any errors with the tasks below, head over to the [Observabilit
 5. Click **Create stack** and choose **With new resources (standard)**.
 ![Images/cidazure-setup-cfn-createstack](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-createstack.png?width=1000px)
  
-6. Paste in the Object URL you grabbed earlier into the **Amazon S3 URL** field. Click **Next**
+6. Paste the Object URL you copied earlier into the **Amazon S3 URL** field. Click **Next**.
 ![Images/cidazure-setup-cfn-template](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-template.png?width=1000px)
 
-7. Give the stack a name. An S3 bucket will be created by the stack and start with the name you enter here.
+7. Give the stack a name. An Amazon S3 bucket will be created starting with the name you enter here.
 ![Images/cidazure-setup-cfn-stackname](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackname.png?width=1000px)
 
 8. Let's set values for our parameters. Fill in the **Common Settings** section. Refer to the [Parameters](#parameters) section for guidance.
 
 9. Fill in the **Microsoft Azure Settings** section. Refer to the [Parameters](#parameters) section for guidance.
 
-10. If you're having trouble identifying what you need for the **AzureFolderPath** parameter, here's an example. In the screenshot below we would enter directory/* Also note **this field is case sensitive** ![Images/cidazure-setup-cfn-azurefolder.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-azurefolder.png?width=400px)
+10. If you're having trouble identifying what you need for the **AzureFolderPath** parameter, here's an example. In the screenshot below we would enter directory/* **this field is case sensitive**. 
+![Images/cidazure-setup-cfn-azurefolder.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-azurefolder.png?width=400px)
 
 11. Fill in the **Data Copy Settings** section. Refer to the [Parameters](#parameters) section for guidance.
 
-12. Leave the **Advanced Settings** as default and click **Next**
+12. Leave the **Advanced Settings** as default and click **Next**.
 
-13. Configure Stack options. If you require a specific IAM role to deploy the template or need to add additional tags, you can do this here. Otherwise leave the settings as default. When you're ready click **Next**
+13. Configure Stack options. If you require a specific IAM role to deploy the template or need to add additional tags, you can do this here. Otherwise leave these settings as default. When you're ready click **Next**.
 ![Images/cidazure-setup-cfn-stackoptions](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackoptions.png?width=1000px)
 
-14. Review the CloudFormation stack settings, check the box to **acknowledge that AWS CloudFormation might create IAM resources with custom names** and click **Submit**
+14. Review the CloudFormation stack settings, check the box to **acknowledge that AWS CloudFormation might create IAM resources with custom names** and click **Submit**.
 ![Images/cidazure-setup-cfn-stackreview](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-stackreview.png?width=1000px)
 
 15. The CloudFormation stack will start to deploy. Click the **refresh** button to view progress. If you see a red status event, then something went wrong. Review the error, correct and try again.
@@ -86,12 +86,12 @@ Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initia
 ### Step 1 (Option-2) Terraform Deployment
 {{%expand "Click to expand" %}}
 
-1. [Download](https://github.com/aws-samples/aws-data-pipelines-for-azure-storage/archive/refs/heads/main.zip) setup files and extract locally. The archive contains files listed below. **You don't need to extract individual files**.
+1. [Download](https://github.com/aws-samples/aws-data-pipelines-for-azure-storage/archive/refs/heads/main.zip) setup files and extract locally. The *TF* folder contains files listed below. **You don't need to extract individual files**.
 
 * **cid-azure-aws-lambda/azure-arm-identity.zip** Lambda layer for Azure identity
 * **cid-azure-aws-lambda/azure-arm-storage.zip** Lambda layer for Azure storage
 * **cid-azure-aws-lambda/cid-azure-blobcopy-xxx.py** Azure blob copy Lambda functions
-* **cid-azure-aws-glue_schema.json** Glue python script
+* **cid-azure-aws-glue_schema.json** AWS Glue job python script
 * **cid-azure-aws.tf** Terraform template for AWS resources
 * **main.tf** AWS provider template
 * **variables.tf** Terraform variables file for AWS resources
@@ -101,21 +101,22 @@ Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initia
 * **main-azure.tf** Example Azure provider template
 * **variables-azure.tf.tf** Example Terraform variables file for Azure resources
 
-2. Edit *terraform.tfvars*. Refer to the Parameters section for guidance
+2. Edit *terraform.tfvars*. Refer to the Parameters section for guidance.
 
-3. If you're having trouble identifying what you need for the **AzureFolderPath** parameter, here's an example. In the screenshot below we would enter directory/* Also note **this field is case sensitive** ![Images/cidazure-setup-cfn-azurefolder.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-azurefolder.png?width=400px)
+3. If you're having trouble identifying what you need for the **AzureFolderPath** parameter, here's an example. In the screenshot below we would enter directory/* **this field is case sensitive**.
+![Images/cidazure-setup-cfn-azurefolder.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-azurefolder.png?width=400px)
 
 4. Run `terraform apply`, review the plan and confirm the action.
 
-Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initial-manual-run)
+Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initial-manual-run).
 
 {{% /expand%}}
 
 ### Step 2 Initial Manual Run
 {{%expand "Click to expand" %}}
-The solution runs automatically at the scheduled times you set in the deployments parameters. If you've had enough for today and want to stop, feel free to come back tomorrow, this part should complete automatically. If you want to visualize data straight away, then let's continue.
+The solution runs automatically at the scheduled times you set in the deployment parameters. If you've had enough for today and want to stop, feel free to come back tomorrow, this part will complete automatically. If you want to visualize data straight away, then let's continue.
 
-As part of the deployment we created a Resource Group to organize our resources into a single view. This will help you identify resources that were created should you get stuck. To view the Resource Group, browse to the **AWS Resource Groups & Tag Editor** service.
+As part of the deployment we created a Resource Group to organize our resources into a single view. To view the Resource Group, browse to the **AWS Resource Groups & Tag Editor** service.
 ![Images/cidazure-setup-manual-resourcegroup](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-resourcegroup.png?width=600px)
 
 Follow the instructions below to start a manual run.
@@ -123,40 +124,40 @@ Follow the instructions below to start a manual run.
 1. Browse to the **AWS Lambda** service.
 ![Images/cidazure-setup-manual-lambdabrowse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdabrowse.png?width=1000px)
 
-2. Search for the Lambda Functions created by the deployment. In our example we used *cid* as the prefix code and the resource id is *lmd*
+2. Search for the Lambda functions created by the deployment. In our example we used *cid* as the prefix code and the resource id is *lmd*.
 ![Images/cidazure-setup-manual-lambdafind](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdafind.png?width=1000px)
 
-3. Click into **Lambda01**. Notice the python code is viewable here. Take a look around if you have time.
+3. Click into **Lambda01**. Notice the python code is visible. Take a look around if you have time.
 ![Images/cidazure-setup-manual-lambda01](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambda01.png?width=1000px)
 
 4. Select the **Test tab** and click the **Test** button.
 ![Images/cidazure-setup-manual-lambda01test](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambda01test.png?width=1000px)
 
-5. You should receive an *Execution result: succeeded* message. 
+5. You should receive an *Execution result: succeeded* message.
 ![Images/cidazure-setup-manual-lambdasuccess](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdasuccess.png?width=1000px)
 
-6. Head over to the **Amazon S3 bucket** created by the deployment. If you deployed via CloudFormation then the S3 bucket will start with the stack name. If you used Terraform the bucket will start with a prefix code you defined, followed by *sss* as the resource ID. You should see files are already starting to appear under the *azurecidraw* folder. Wait until they've all appeared before moving onto the next step.
+6. Head over to the **Amazon S3 bucket** created by the deployment. If you deployed via CloudFormation, the S3 bucket will start with the stack name. If you used Terraform the bucket will start with a prefix code you defined, followed by *sss* as the resource ID. You should see files starting to appear under the *azurecidraw* folder. Wait until all objects have been copied before moving onto the next step.
 ![Images/cidazure-setup-manual-s3appear](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3appear.png?width=1000px)
 
-7. Let's start the Glue job and transform the data. Open the **AWS Glue** service and click into **ETL jobs**
+7. Let's start the AWS Glue job and transform the data. Open the **AWS Glue** service and click into **ETL jobs**.
 ![Images/cidazure-setup-manual-glue](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-glue.png?width=1000px)
 
-8. Select the Glue job created by the deployment. In our example we used *cid* as the prefix code and the resource id is *glj*
+8. Select the AWS Glue job created by the deployment. In our example we used *cid* as the prefix code and the resource id is *glj*.
 ![Images/cidazure-setup-manual-gluejob](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluejob.png?width=1000px)
 
-9. Take a look at the Glue script if you have time, you can make changes here to suit your needs. Click on the **Runs tab** and click the **Run** button. The Glue job will execute.
+9. Take a look at the AWS Glue script if you have time. Click on the **Runs tab** and click the **Run** button. The AWS Glue job will execute.
 ![Images/cidazure-setups-manual-gluestart](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluestart.png?width=1000px)
 
 10. When the job completes the run status will change to *success*.
 ![Images/cidazure-setup-manual-gluesuccess](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluesuccess.png?width=1000px)
 
-11. Now let's head back over to the same **Amazon S3 bucket** you accessed earlier. Two new folder should have appeared. *azurecidparquet* contains parquet versions of the original CSV files. The original CSV files have moved to the *azurecidprocessed* folder and the *azurecidraw* folder has been deleted.
+11. Head back over to the same **Amazon S3 bucket** you accessed earlier. Two new folder have appeared. *azurecidparquet* contains parquet versions of the original CSV files. The original CSV files have moved to the *azurecidprocessed* folder and the *azurecidraw* folder has been deleted.
 ![Images/cidazure-setup-manual-s3processed](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3processed.png?width=1000px)
 
-12. If you click into the *azurecidprocessed* folder you'll see data is partitioned by month.
+12. Click into the *azurecidparquet* folder. You'll notice data is partitioned by month.
 ![Images/cidazure-setup-manual-s3parquet](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3parquet.png?width=1000px)
 
-Awesome! You've completed the manual run, let's move onto [Dashboard Deployment.](#dashboard-deployment)
+Awesome! You've completed the manual run, let's move onto [Dashboard Deployment.](#dashboard-deployment).
 {{% /expand%}}
 
 ### Step 3 Dashboard Deployment
@@ -191,7 +192,7 @@ Next, let's create our QuickSight dataset.
 7. Give the Data source a name, select the Athena workgroup created by the deployment and click **Create data source**.
 ![Images/cidazure-setup-dashboard-qscreatedata](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qscreatedata.png?width=500px)
 
-8. Select the Glue database created by the deployment and relevant table which will end in *athena_view*. Then click **Edit/Preview data**
+8. Select the AWS Glue database created by the deployment and relevant table which will end in *athena_view*. Then click **Edit/Preview data**
 ![Images/cidazure-setup-dashboard-qschoosetable](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-qschoosetable.png?width=500px)
 
 9. Check data appears along with any tag columns you specified. Once done, set the **Query mode to SPICE** and click **save & publish button**. We use Spice to minimize the loading times for visuals.
@@ -286,9 +287,9 @@ There are no constraints set on parameters. Some Parameters only exist for speci
 
 |Parameter|Section|Deployment|Guidance|
 |-|-|-|-|
-|SourceBucket|Common Settings|CloudFormation|Key name of the S3 bucket containing installation files .e.g. azure-arm-identity.zip, azure-arm-storage.zip, cid-azure-gluejob-cfn.py, cid-azure-lambda0x.zip files, cid-azure-stack.yaml. The deployment will fail if it cannot find source files.  |
-|CustomerCode|Common Settings|CloudFormation, Terraform|Used to prefix all resource names. If you set the value to **star**, the  following resources will be created **star**lmdpdcidazurelambda01 for Lambda01 and **star**gljpdcidazure for the Glue job, etc. You can't set this to **aws** :_(
-|EnvironmentCode|Common Settings|CloudFormation, Terraform|Used within the name of resources. This is useful when you need to deploy the solution to multiple environments. If you set the value to **dev**,  resources will be named starlmd**dev**cidazurelambda01 for Lambda01 and starglj**dev**cidazure for the Glue job, etc.|
+|SourceBucket|Common Settings|CloudFormation|Key name of the Amazon S3 bucket containing installation files .e.g. azure-arm-identity.zip, azure-arm-storage.zip, cid-azure-gluejob-cfn.py, cid-azure-lambda0x.zip files, cid-azure-stack.yaml. The deployment will fail if it cannot find source files.  |
+|CustomerCode|Common Settings|CloudFormation, Terraform|Used to prefix all resource names. If you set the value to **star**, the  following resources will be created **star**lmdpdcidazurelambda01 for Lambda01 and **star**gljpdcidazure for the AWS Glue job, etc. You can't set this to **aws** :_(
+|EnvironmentCode|Common Settings|CloudFormation, Terraform|Used within the name of resources. This is useful when you need to deploy the solution to multiple environments. If you set the value to **dev**,  resources will be named starlmd**dev**cidazurelambda01 for Lambda01 and starglj**dev**cidazure for the AWS Glue job, etc.|
 |CustomerTag|Common Settings|CloudFormation, Terraform|All resources that can be tagged are tagged. Tagging adds descriptive metadata to each resource. This tag helps us identify the resources by department, e.g. finops, devops, IT shared services, etc.|
 |EnvironmentTag|Common Settings|CloudFormation, Terraform|All resources that can be tagged are tagged. Tagging adds descriptive metadata to each resource. This tag helps us identify resources by environment, e.g. production, development, testing, etc. |
 |Account Type|Microsoft Azure Settings|CloudFormation, Terraform|The type of agreement you have with Microsoft. Each agreement has a different data schema. Check [this](https://learn.microsoft.com/en-us/azure/cost-management-billing/automate/understand-usage-details-fields#list-of-fields-and-descriptions)link for details. To quickly determine your account type open an Azure cost export CSV file. If you have a *CostinBillingCurrency* column choose **MCA**. If you have a *Cost* column then go for **EA**, if you find a *PreTaxCost* column then select **PTAX**.|
@@ -300,7 +301,7 @@ There are no constraints set on parameters. Some Parameters only exist for speci
 |AzureFolderPath|Microsoft Azure Settings|CloudFormation, Terraform|The path to the Azure cost export folder. We don't need the storage account name or the container name. **This field is case sensitive**. This is super important!|
 |AzureTags|Microsoft Azure Settings|CloudFormation, Terraform|Enter Azure tag names to expose them as data fields in the QuickSight dashboard. Each value will add an additional column to the transformed dataset.
 |AzureCopySchedule|Data Copy Settings|CloudFormation, Terraform|Used to schedule the Azure data pull. It uses a Cron expression, more information [here.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html)|
-|GlueCopySchedule|Data Copy Settings|CloudFormation, Terraform|Used to schedule the Glue job which transforms data allowing it to be queried by Athena. It uses a Cron expression, more information [here.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html). The Glue transform should be scheduled to run after the Azure data pull completes.|
+|GlueCopySchedule|Data Copy Settings|CloudFormation, Terraform|Used to schedule the AWS Glue job which transforms data allowing it to be queried by Athena. It uses a Cron expression, more information [here.](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html). The AWS Glue transform should be scheduled to run after the Azure data pull completes.|
 |BlobToS3SyncStartDate|Data Copy Settings|CloudFormation, Terraform|Used to define what Azure files are copied across for initial processing. Setting this value to 20200201 Will copy all files modified on and after February 1st 2020. Typically we want to copy all files on the first run, so set this to the date of the moon landing or something similar.|
 |PartitionSize|Advanced Settings|CloudFormation, Terraform|Experimental. **Do not use**.|
 |MaxPartitionsPerFile|Advanced Settings|CloudFormation, Terraform|Experimental. **Do not use**.|

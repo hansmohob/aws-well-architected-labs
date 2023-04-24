@@ -197,7 +197,7 @@ To re-enable the copy process, run through the steps above changing the *isactiv
 
 ### Re-processing data
 {{%expand "Click to expand" %}}
-If you've added new Azure tags or you're redeploying the solution, you may need to re-process data. To reprocess data we delete any existing parquet files created by AWS Glue, move processed CSV files to the *azurecidraw* folder and run the Glue job. See instructions below.
+If you've added new Azure tags or you're redeploying the solution, you may need to re-process data. To reprocess data we delete any existing parquet files created by AWS Glue, move processed CSV files to the *azurecidraw* folder and run the AWS Glue job. See instructions below.
 
 1. Browse to the **Amazon S3 bucket** created by the deployment. If you deployed using CloudFormation then the bucket will start with the stack name. If you used Terraform the bucket will start with the prefix code you specified, followed by *sss* as the resource ID.
 ![Images/cidazure-common-reprocess-s3browse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-reprocess-s3browse.png?width=1000px)
@@ -207,7 +207,7 @@ If you've added new Azure tags or you're redeploying the solution, you may need 
 3. Confirm deletion and click **Delete objects**
 ![Images/cidazure-common-reprocess-s3delete](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-reprocess-s3delete.png?width=500px)
 
-4. Locate the processed data. If you're modifying an existing deployment, the processed data will be in a folder called *azurecidprocessed*. If you're redeploying the solution you should have taken a copy of the processed data and moved it to another S3 bucket. Once you locate the files, move them to a new folder called **azurecidraw** within the deployments S3 Bucket.
+4. Locate the processed data. If you're modifying an existing deployment, the processed data will be in a folder called *azurecidprocessed*. If you're redeploying the solution you should have taken a copy of the processed data and moved it to another Amazon S3 bucket. Once you locate the files, move them to a new folder called **azurecidraw** within the deployments Amazon S3 Bucket.
 
 | | |
 |-|-|
@@ -217,16 +217,16 @@ If you've added new Azure tags or you're redeploying the solution, you may need 
 | | |
 |-|-|
 
-5. When the move completes, head back to the S3 Bucket created by the deployment. You should have an *azurecidraw* folder. This folder will contain a folder structure and CSV files.
+5. When the move completes, head back to the Amazon S3 Bucket created by the deployment. You should have an *azurecidraw* folder. This folder will contain a folder structure and CSV files.
 ![Images/cidazure-common-reprocess-s3rawfolder](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-reprocess-s3rawfolder.png?width=1000px)
 
-6. You're ready to re-process the data by running the Glue job. Open the **AWS Glue** service and click into **ETL jobs**
+6. You're ready to re-process the data by running the AWS Glue job. Open the **AWS Glue** service and click into **ETL jobs**
 ![Images/cidazure-setup-manual-glue](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-glue.png?width=1000px)
 
 Select the Glue job created by the deployment. In our example we used *cid* as the prefix code and the resource id is *glj*
 ![Images/cidazure-setup-manual-gluejob](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluejob.png?width=1000px)
 
-7. Click on the **Runs tab** and click the **Run** button. The Glue job will execute.
+7. Click on the **Runs tab** and click the **Run** button. The AWS Glue job will execute.
 ![Images/cidazure-setups-manual-gluestart](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluestart.png?width=1000px)
 
 8. When the job completes the run status will change to *success*.

@@ -15,13 +15,13 @@ Once you finish the lab, follow the instructions below to remove all resources.
 ### CloudFormation Clean Up
 {{%expand "Click to expand" %}}
 
-1. Before we delete the CloudFormation stack, let's delete the S3 bucket. Browse to Amazon S3
+1. Before we delete the CloudFormation stack, let's delete the Amazon S3 bucket. Browse to **Amazon S3**
 ![Images/cidazure-cleanup-cfn-s3](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3.png?width=1000px)
 
-2. Open the S3 bucket created during the deployment and check it's contents. You may wish to retain the processed CSV files for future use. Remember Azure data egress charges apply each time they are pulled. If you wish to retain the files move the *azurecidprocessed* folder to another S3 bucket.
+2. Open the Amazon S3 bucket created during the deployment and check it's contents. You may wish to retain the processed CSV files for future use. Remember Azure data egress charges apply each time they are pulled. If you wish to retain the files move the *azurecidprocessed* folder to another Amazon S3 bucket.
 ![Images/cidazure-cleanup-cfn-s3move](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3move.png?width=1000px)
 
-3. When you are ready, select the S3 bucket created by the deployment and click **Empty**
+3. When you are ready, select the Amazon S3 bucket created by the deployment and click **Empty**
 ![Images/cidazure-cleanup-cfn-s3empty](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3empty.png?width=1000px)
 
 4. Follow the on-screen instructions to confirm the action.
@@ -50,7 +50,7 @@ Nice work, all resources have been deleted. Please visit us again sometime soon 
 ### Terraform Clean Up
 {{%expand "Click to expand" %}}
 
-1. You may wish to retain the processed CSV files for future use. Remember Azure data egress charges apply each time they are pulled. If you wish to retain the files move the azurecidprocessed folder to another S3 bucket. 
+1. You may wish to retain the processed CSV files for future use. Remember Azure data egress charges apply each time they are pulled. If you wish to retain the files move the azurecidprocessed folder to another Amazon S3 bucket. 
 ![Images/cidazure-cleanup-cfn-s3move](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3move.png?width=1000px)
 
 2. When you're ready, run `terraform destroy` review the plan and confirm the action.
