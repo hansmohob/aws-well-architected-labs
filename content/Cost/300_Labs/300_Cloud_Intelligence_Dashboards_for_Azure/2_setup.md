@@ -163,7 +163,7 @@ Awesome! You've completed the manual run, let's move onto [Dashboard Deployment.
 ### Step 3 Dashboard Deployment
 {{%expand "Click to expand" %}}
 
-First up we need to create our Amazon Athena view. 
+First we need to create an Amazon Athena view.
 
 1. Browse to the **Amazon Athena** service.
 ![Images/cidazure-setup-dashboard-athenabrowse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-athenabrowse.png?width=1000px)
@@ -217,7 +217,7 @@ OK, nice, we've got data, but need visuals! We've created a sample dashboard to 
 
 14. Wait until you see a command prompt. Install the latest pip package by running the following command: `python3 -m ensurepip --upgrade`
 
-15. Install cid-cmd using the following command: `pip3 install -U git+https://github.com/aws-samples/aws-cudos-framework-deployment.git@export-views`
+15. Install cid-cmd using the following command: `pip3 install -U git+https://github.com/aws-samples/aws-cudos-framework-deployment.git@prefixes`
 ![Images/cidazure-setup-dashboard-cidcmdinstall](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmdinstall.png?width=1000px)
 
 16. Run `aws s3 cp s3://SOURCEBUCKET/CloudIntelligenceDashboardforAzure.yaml  /tmp/CloudIntelligenceDashboardforAzure.yaml`. This will copy the QuickSight Dashboard template to CloudShell. Replace **SOURCEBUCKET** with the name of the Source Bucket. This is the name of the bucket you uploaded the source files to way back at the start of the lab. In the screenshot below our bucket is called *awscidforazuresourcecode*
