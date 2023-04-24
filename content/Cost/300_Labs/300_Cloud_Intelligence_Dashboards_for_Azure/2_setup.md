@@ -169,7 +169,7 @@ We've created a sample dashboard to get you started. We'll use the [**cid-cmd**]
 ![Images/cidazure-setup-dashboard-cloudshell](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cloudshell.png?width=1000px)
 
 2. Wait until you see a command prompt. Install the latest pip package by running the following command: `/usr/bin/python3 -m pip install --upgrade pip`
-![Images/cidazure-setup-dashboard-installpip](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-installpip.png?width=1000px)
+![Images/cidazure-setup-dashboard-installpip](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-installpip.png?width=700px)
 
 3. Install cid-cmd using the following command: `pip3 install -U git+https://github.com/aws-samples/aws-cudos-framework-deployment.git@prefixes`
 ![Images/cidazure-setup-dashboard-cidcmdinstall](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmdinstall.png?width=1000px)
@@ -214,7 +214,7 @@ We've created a sample dashboard to get you started. We'll use the [**cid-cmd**]
 ![cidazure-setup-dashboard-floppy](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-floppy.png?width=1000px)
 
 16. Click to save the dashboard as a QuickSight analysis. Give it a name and click **SAVE**.
-![cidazure-setup-dashboard-saveanalysis](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-saveanalysis.png?width=600px)
+![cidazure-setup-dashboard-saveanalysis](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-saveanalysis.png?width=700px)
 
 Nice work, you've completed the setup :). Check out the [Common Tasks](../3_common_tasks)section to customize the solution.
 ![cidazure-setup-dashboard-finish](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-finish.png?width=1000px)
