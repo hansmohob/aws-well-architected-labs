@@ -45,12 +45,13 @@ Explore an example dashboard **TOCOMPLETE**
 
 1. An existing AWS Account or you must complete the [AWS account setup lab.](/cost/100_labs/100_1_aws_account_setup/)
 2. An Amazon QuickSight Enterprise Edition Account. If you do not already have one follow instructions [here.](https://aws.amazon.com/premiumsupport/knowledge-center/quicksight-enterprise-account/)
-3. A dedicated Azure Storage Account and blob storage container to house Azure cost management exports. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal) **All data within the blob storage container will be sent to Amazon S3**. It's best to use a dedicated blob container for this project.
-4. Make a note of the Blob endpoint URL found under storage accounts > [storage account name] > Settings > Endpoints > Blob service.
-5. Azure Active Directory application and service principal. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)**Note down the *Application secret* which is only displayed during setup.**
-6. The service principal must be assigned *Storage Blob Data Contributor* and *Storage Queue Data Contributor* roles scoped to the Storage Account used in step 3. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/storage/blobs/assign-azure-role-data-access?tabs=portal)
-7. The Azure Active Directory application's *Application ID* and *Tenant ID*. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#sign-in-to-the-application)
-8. Microsoft Azure must be configured to export cost management data to the dedicated Azure storage container used in step 3 on a daily recurring schedule. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-export-acm-data?tabs=azure-portal)
+3. Enough QuickSight SPICE capacity to accommodate your data set. To purchase SPICE, follow instructions [here.](https://docs.aws.amazon.com/quicksight/latest/user/managing-spice-capacity.html#spice-capacity-purchasing)
+4. A dedicated Azure Storage Account and blob storage container to house Azure cost management exports. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal) **All data within the blob storage container will be sent to Amazon S3**. It's best to use a dedicated blob container for this project.
+5. Make a note of the Blob endpoint URL found under storage accounts > [storage account name] > Settings > Endpoints > Blob service.
+6. Azure Active Directory application and service principal. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal)**Note down the *Application secret* which is only displayed during setup.**
+7. The service principal must be assigned *Storage Blob Data Contributor* and *Storage Queue Data Contributor* roles scoped to the Storage Account used in step 3. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/storage/blobs/assign-azure-role-data-access?tabs=portal)
+8. The Azure Active Directory application's *Application ID* and *Tenant ID*. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal#sign-in-to-the-application)
+9. Microsoft Azure must be configured to export cost management data to the dedicated Azure storage container used in step 3 on a daily recurring schedule. Follow instructions [here.](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-export-acm-data?tabs=azure-portal)
 
 {{% notice warning %}}
 Do not export data for Actual cost (Usage and Purchases) and Amortized cost (Usage and Purchases) to the same Azure storage container. Pick one to avoid unnecessary Azure egress charges.
@@ -78,7 +79,7 @@ You'll need permissions to create all **AWS resources** shown below through **AW
 Costs for this lab include the following components;
 
 * **AWS resources**. The resources created within this lab typically cost less than **$100** a month. 
-* **QuickSight Enterprise**. License costs start at **$18** a month.
+* **QuickSight Enterprise**. Author licenses are $18/month with an annual commitment or $24/month without a commitment.
 * **Microsoft Azure egress data charges**. Please refer to [this](https://azure.microsoft.com/en-us/pricing/details/bandwidth/) link.
 
 ### Duration

@@ -39,7 +39,7 @@ If you encounter an error during the lab, head over to the [Observability and Tr
 * **cid-azure-stack.yaml** CloudFormation template
 * **cid-azure-dashboard.yaml** Sample QuickSight dashboard
 
-2. Place the files in a new Amazon S3 bucket. CloudFormation will access these during deployment. Don't use the name in the screenshot below, someone's already used it and Amazon S3 bucket names need to be globally unique.
+2. Place the files in a new Amazon S3 bucket in the same region you will be deploying the CloudFormation template. CloudFormation will access these during deployment. Don't use the name in the screenshot below, someone's already used it and Amazon S3 bucket names need to be globally unique.
 ![Images/cidazure-setup-cfn-s3source](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-s3source.png?width=1000px)
 
 3. Click into **cid-azure-stack.yaml** and copy the Object URL. You'll need this in a moment.
@@ -114,7 +114,7 @@ Great job, you've completed the setup! Now move onto [Manual Run](#step-2-initia
 
 ### Step 2 Initial Manual Run
 {{%expand "Click to expand" %}}
-The solution runs automatically at the scheduled times you set in the deployment parameters. If you've had enough for today and want to stop, feel free to come back tomorrow, this part will complete automatically. If you want to visualize data straight away, then let's continue.
+The solution runs automatically at the scheduled times you set in the deployment parameters. If you've had enough for today and want to stop, feel free to come back tomorrow, this part will complete automatically and you can carry on with Step 3 to deploy the dashboard at that time. If you want to visualize data straight away, then let's continue.
 
 As part of the deployment we created a Resource Group to organize our resources into a single view. To view the Resource Group, browse to the **AWS Resource Groups & Tag Editor** service.
 ![Images/cidazure-setup-manual-resourcegroup](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-resourcegroup.png?width=600px)
@@ -136,7 +136,7 @@ Follow the instructions below to start a manual run.
 5. You should receive an *Execution result: succeeded* message.
 ![Images/cidazure-setup-manual-lambdasuccess](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-lambdasuccess.png?width=1000px)
 
-6. Head over to the **Amazon S3 bucket** created by the deployment. If you deployed via CloudFormation, the S3 bucket will start with the stack name. If you used Terraform the bucket will start with a prefix code you defined, followed by *sss* as the resource ID. You should see files starting to appear under the *azurecidraw* folder. Wait until all objects have been copied before moving onto the next step.
+6. Head over to the **Amazon S3 bucket** created by the deployment. **NOTE:** If you deployed via CloudFormation, the S3 bucket will start with the stack name. If you used Terraform the bucket will start with a prefix code you defined, followed by *sss* as the resource ID. You should see files starting to appear under the *azurecidraw* folder. Wait until all objects have been copied before moving onto the next step.
 ![Images/cidazure-setup-manual-s3appear](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3appear.png?width=1000px)
 
 7. Let's start the AWS Glue job and transform the data. Open the **AWS Glue** service and click into **ETL jobs**.
@@ -151,7 +151,7 @@ Follow the instructions below to start a manual run.
 10. When the job completes the run status will change to *succeeded*.
 ![Images/cidazure-setup-manual-gluesuccess](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluesuccess.png?width=1000px)
 
-11. Head back over to the same **Amazon S3 bucket** you accessed earlier. Two new folder have appeared. *azurecidparquet* contains parquet versions of the original CSV files. The original CSV files have moved to the *azurecidprocessed* folder and the *azurecidraw* folder has been deleted.
+11. Head back over to the same **Amazon S3 bucket** you accessed in  step 6. Two new folders have appeared. *azurecidparquet* contains parquet versions of the original CSV files. The original CSV files have moved to the *azurecidprocessed* folder and the *azurecidraw* folder has been deleted.
 ![Images/cidazure-setup-manual-s3processed](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3processed.png?width=1000px)
 
 12. Click into the *azurecidparquet* folder. You'll notice data is partitioned by month.
@@ -174,7 +174,7 @@ We've created a sample dashboard to get you started. We'll use the [**cid-cmd**]
 3. Install cid-cmd using the following command: `pip3 install -U git+https://github.com/aws-samples/aws-cudos-framework-deployment.git@prefixes`
 ![Images/cidazure-setup-dashboard-cidcmdinstall](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-cidcmdinstall.png?width=1000px)
 
-4. Run `aws s3 cp s3://SOURCEBUCKET/cid-azure-dashboard.yaml cid-azure-dashboard.yaml`. This will copy the QuickSight Dashboard template to CloudShell. Replace **SOURCEBUCKET**. This is the name of the bucket you uploaded the source files to way back at the start of the lab. In the screenshot below our bucket is called *awscidforazuresourcecode*
+4. Run `aws s3 cp s3://SOURCEBUCKET/cid-azure-dashboard.yaml cid-azure-dashboard.yaml`. This will copy the QuickSight Dashboard template to CloudShell. Replace **SOURCEBUCKET** with the name of the bucket you uploaded the source files to way back at the start of the lab. In the screenshot below our bucket is called *awscidforazuresourcecode*
 ![Images/cidazure-setup-dashboard-s3tocloudshell](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-s3tocloudshell.png?width=1000px)
 
 5. We've created the next command for you. Let's retrieve it. Open **AWS Systems Manager** in a new tab.
@@ -210,7 +210,7 @@ We've created a sample dashboard to get you started. We'll use the [**cid-cmd**]
 14. Toggle the **save as** switch to on, confirm the action and click **Go back to Azure Cost Dashboard**.
 ![cidazure-setup-dashboard-saveas](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-saveas.png?width=1000px)
 
-15. Refresh the web browser and you should see a new *save as* icon appear, It looks like a floppy disk (if you remember those).
+15. Refresh the web browser and you should see a new *save as* icon appear, it looks like a floppy disk (if you remember those).
 ![cidazure-setup-dashboard-floppy](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-floppy.png?width=1000px)
 
 16. Click to save the dashboard as a QuickSight analysis. Give it a name and click **SAVE**.
@@ -235,9 +235,9 @@ There are no constraints set on parameters. Some Parameters only exist for speci
 |Parameter|Section|Deployment|Guidance|
 |-|-|-|-|
 |SourceBucket|Common Settings|CloudFormation|Key name of the Amazon S3 bucket containing installation files .e.g. azure-arm-identity.zip, azure-arm-storage.zip, cid-azure-gluejob-cfn.py, cid-azure-lambda0x.zip files, cid-azure-stack.yaml. The deployment will fail if it cannot find source files.  |
-|CustomerCode|Common Settings|CloudFormation, Terraform|Used to prefix all resource names. If you set the value to **star**, the  following resources will be created **star**lmdpdcidazurelambda01 for Lambda01 and **star**gljpdcidazure for the AWS Glue job, etc. You can't set this to **aws** :_(
+|PrefixCode|Common Settings|CloudFormation, Terraform|Used to prefix all resource names. If you set the value to **star**, the  following resources will be created **star**lmdpdcidazurelambda01 for Lambda01 and **star**gljpdcidazure for the AWS Glue job, etc. You can't set this to **aws** :_(
 |EnvironmentCode|Common Settings|CloudFormation, Terraform|Used within the name of resources. This is useful when you need to deploy the solution to multiple environments. If you set the value to **dev**,  resources will be named starlmd**dev**cidazurelambda01 for Lambda01 and starglj**dev**cidazure for the AWS Glue job, etc.|
-|CustomerTag|Common Settings|CloudFormation, Terraform|All resources that can be tagged are tagged. Tagging adds descriptive metadata to each resource. This tag helps us identify the resources by department, e.g. finops, devops, IT shared services, etc.|
+|OwnerTag|Common Settings|CloudFormation, Terraform|All resources that can be tagged are tagged. Tagging adds descriptive metadata to each resource. This tag helps us identify the resources by department, e.g. finops, devops, IT shared services, etc.|
 |EnvironmentTag|Common Settings|CloudFormation, Terraform|All resources that can be tagged are tagged. Tagging adds descriptive metadata to each resource. This tag helps us identify resources by environment, e.g. production, development, testing, etc. |
 |Account Type|Microsoft Azure Settings|CloudFormation, Terraform|The type of agreement you have with Microsoft. Each agreement has a different data schema. Check [this](https://learn.microsoft.com/en-us/azure/cost-management-billing/automate/understand-usage-details-fields#list-of-fields-and-descriptions)link for details. To quickly determine your account type open an Azure cost export CSV file. If you have a *CostinBillingCurrency* column choose **MCA**. If you have a *Cost* column then go for **EA**, if you find a *PreTaxCost* column then select **PTAX**.|
 |AzureBlobURL|Microsoft Azure Settings|CloudFormation, Terraform|Lambda functions query the Azure blob endpoint URL specified here. You can get the URL from the Azure portal Storage Account >  Settings Section > Endpoints > Blob service|

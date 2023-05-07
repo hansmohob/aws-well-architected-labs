@@ -27,7 +27,7 @@ No doubt you'll want to create your own awesome visuals to help you interpret in
 5. Drag *dateparsed* into the **X axis** and *costinbillingcurrency* or *cost* into **Value**.
 ![Images/cidazure-common-visual-fieldwell](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-fieldwell.png?width=1000px)
 
-6. Scroll down through the fields list. You'll notice a data field called *tags* this is the original column, in JSON format, from the Azure cost export. If you specified Azure tags during deployment you'll see additional data fields that start with *tag-*
+6. Scroll down through the fields list on the left hand side. You'll notice a data field called *tags* this is the original column, in JSON format, from the Azure cost export. If you specified Azure tags during deployment you'll see additional data fields that start with *tag-*
 ![Images/cidazure-common-visual-tagfields](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-tagfields.png?width=300px)
 
 7. In our example we're going to select *tag-environment* and drag it into the **Group/Color** field well. 
@@ -37,30 +37,27 @@ No doubt you'll want to create your own awesome visuals to help you interpret in
 
 Tagging resources helps us drive accountability. It's an important part of cost optimization in any cloud. Read more [here.](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-laying-the-foundation/tagging.html?ref=wellarchitected)
 
-9. Select our new visual, click on the **Filter** icon and **Add Filter**.
+9. Select the new visual and right click on *null* in the legend.
 ![Images/cidazure-common-visual-filter](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-filter.png?width=500px)
 
-10. Choose an appropriate tag, in our case it's *tag-environment*. Click the 3 dots and select **Edit**.
+10. Click on **Exclude null**. This will create a filter for the field tag-environment which excludes any null values and is applied to only this visual. 
 ![Images/cidazure-common-visual-configurefilter](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-configurefilter.png?width=500px)
 
-11. Change the filter to exclude *NULL* and click **Apply**.
-![Images/cidazure-common-visual-editfilter](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-editfilter.png?width=500px)
-
-12. The visual will update as below. Looks like our developers have been busy over the past few days!
+11. The visual will update as below. Looks like our developers have been busy over the past few days!
 ![cidazure-common-visual-filteredvisual](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-filteredvisual.png?width=500px)
 
 Finally, let's create a filter to change the view on all visuals. We'll stick with *tag-environment*
 
-13. Click on any visual, click on the **Filter** icon and **Add Filter**. Select the tag you're interested in. 
+12. Click on any visual, click on the **Filter** icon and **Add Filter**. Select the *tag-environment field* field. 
 ![cidazure-common-visual-allfilter](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-allfilter.png?width=1000px)
 
-14. Edit the filter as before, but this time in the *Applied to* box, select **All applicable visuals**. Leave the other settings as default and click **Apply**.
+13. Edit the filter by just clicking on it or by choosing **Edit** from the 3 dots menu. In the *Applied to* box, select **All applicable visuals**. Leave the other settings as default and click **Apply**.
 ![Images/cidazure-common-visual-allfilter2](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-allfilter2.png?width=500px)
 
-15. Close the filter blade. Click the 3 dots and select **Pin to top**
+14. Close the filter blade by clicking the back arrow next to the Edit filter heading. Click the 3 dots and select **Pin to top**
 ![Images/cidazure-common-visual-pinfilter](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-pinfilter.png?width=500px)
 
-16. We now have the ability to filter all visuals per tag.
+15. We now have the ability to filter all visuals per tag.
 ![Images/cidazure-common-visual-filterfinish](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-filterfinish.png?width=1000px)
 
 Have a go at creating your own visuals. If you need help understanding the data fields, Microsoft provide documentation [here.](https://learn.microsoft.com/en-us/azure/cost-management-billing/automate/understand-usage-details-fields#list-of-fields-and-descriptions)
