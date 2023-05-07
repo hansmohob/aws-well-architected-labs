@@ -12,10 +12,10 @@ Now that you've deployed the solution let's perform some common tasks.
 {{%expand "Click to expand" %}}
 No doubt you'll want to create your own awesome visuals to help you interpret information. This is easy to achieve with Amazon QuickSight. Let's create a new visual based on an Azure tag. In our Example, we want to see environment spend over time.
 
-1. Head over to the **QuickSight** service and open the *AWSCIDforAzure* analysis.
+1. Head over to the **QuickSight** service and open your Cloud Intelligence Dashboards for Azure analysis.
 ![Images/cidazure-common-visual-quicksight](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-quicksight.png?width=500px)
 
-2. Click on the *details* sheet.
+2. Click on the *Detail* sheet.
 ![Images/cidazure-common-visual-details](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-details.png?width=1000px)
 
 3. On the top left, click on **ADD** and **Add visual**.
@@ -27,13 +27,13 @@ No doubt you'll want to create your own awesome visuals to help you interpret in
 5. Drag *dateparsed* into the **X axis** and *costinbillingcurrency* or *cost* into **Value**.
 ![Images/cidazure-common-visual-fieldwell](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-fieldwell.png?width=1000px)
 
-6. Scroll down through the fields list. You'll notice a data field called *tag* this is the original column from the Azure cost export. If you specified Azure tags during deployment you'll see additional data fields prefixed with *tag-*
+6. Scroll down through the fields list. You'll notice a data field called *tags* this is the original column, in JSON format, from the Azure cost export. If you specified Azure tags during deployment you'll see additional data fields that start with *tag-*
 ![Images/cidazure-common-visual-tagfields](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-tagfields.png?width=300px)
 
 7. In our example we're going to select *tag-environment* and drag it into the **Group/Color** field well. 
 ![Images/cidazure-common-visual-envtag](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-visual-envtag.png?width=1000px)
 
-8. Nice, we have a visual, but you can see a lot of our resources are showing as *null* because they are not tagged. Lets create a filter to exclude these. 
+8. Nice, we have a visual, but you can see a lot of our resources are showing as *null* because they are not tagged. Let's create a filter to exclude these. 
 
 Tagging resources helps us drive accountability. It's an important part of cost optimization in any cloud. Read more [here.](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-laying-the-foundation/tagging.html?ref=wellarchitected)
 
@@ -70,7 +70,7 @@ Have a go at creating your own visuals. If you need help understanding the data 
 ### Changing scheduled times
 {{%expand "Click to expand" %}}
 
-The solution runs automatically at the scheduled times you set during deployment. There are two timers. One for the copy of data (Amazon EventBridge) and another for the processing of data (AWS Glue). While it's possible to change the timers on each service, we do not advise you do this.
+The solution runs automatically at the scheduled times you set during deployment. There are two timers. One for the copy of data (Amazon EventBridge) and another for the processing of data (AWS Glue). While it's possible to change the timers for each service, we do not advise you do this.
 
 | | |
 |-|-|
@@ -207,7 +207,7 @@ If you've added new Azure tags or you're redeploying the solution, you may need 
 3. Confirm deletion and click **Delete objects**
 ![Images/cidazure-common-reprocess-s3delete](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-reprocess-s3delete.png?width=500px)
 
-4. Locate the processed data. If you're modifying an existing deployment, the processed data will be in a folder called *azurecidprocessed*. If you're redeploying the solution you should have taken a copy of the processed data and moved it to another Amazon S3 bucket. Once you locate the files, move them to a new folder called **azurecidraw** within the deployments Amazon S3 Bucket.
+4. Locate the processed data. If you're modifying an existing deployment, the processed data will be in a folder called *azurecidprocessed*. If you're redeploying the solution you should have taken a copy of the processed data and moved it to another Amazon S3 bucket. Once you locate the files, move them to a new folder called **azurecidraw** within the deployments Amazon S3 Bucket. Once you've moved the files, refresh your page and you should see the *azurecidprocessed* folder has disappeared, but if it didn't don't worry - it just needs to be empty.
 
 | | |
 |-|-|

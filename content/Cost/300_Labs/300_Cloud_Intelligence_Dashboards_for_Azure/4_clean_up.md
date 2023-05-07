@@ -7,7 +7,7 @@ hidden: false
 ---
 
 {{% notice note %}}
-It's best to delete resources as soon as you have finished the lab or you no longer require the solution. leaving it running will incur usage charges. Deleting resources that are no longer required is an important part of Cost Optimization!
+It's best to delete resources as soon as you have finished the lab or you no longer require the solution. Leaving it running will incur usage charges. Deleting resources that are no longer required is an important part of Cost Optimization!
 {{% /notice %}} 
 
 Once you finish the lab, follow the instructions below to remove all resources.
@@ -18,7 +18,7 @@ Once you finish the lab, follow the instructions below to remove all resources.
 1. Before we delete the CloudFormation stack, let's delete the Amazon S3 bucket. Browse to **Amazon S3**
 ![Images/cidazure-cleanup-cfn-s3](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3.png?width=1000px)
 
-2. Open the Amazon S3 bucket created during the deployment and check it's contents. You may wish to retain the processed CSV files for future use. Remember Azure data egress charges apply each time they are pulled. If you wish to retain the files move the *azurecidprocessed* folder to another Amazon S3 bucket.
+2. Open the Amazon S3 bucket created during the deployment and check its contents. You may wish to retain the processed CSV files for future use. Remember Azure data egress charges apply each time they are pulled. If you wish to retain the files move the *azurecidprocessed* folder to another Amazon S3 bucket.
 ![Images/cidazure-cleanup-cfn-s3move](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-cleanup-cfn-s3move.png?width=1000px)
 
 3. When you are ready, select the Amazon S3 bucket created by the deployment and click **Empty**

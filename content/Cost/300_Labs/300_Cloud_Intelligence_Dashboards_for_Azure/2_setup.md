@@ -6,7 +6,7 @@ weight: 20
 hidden: false
 ---
 
-We've provided a set of deployment templates to speed up the build. Once you complete the setup, we'll run through basic operations to get you familiar with the solution and the underlying AWS services. If you want a deeper understanding of how the services work, take a look through the code. We've added comments to signpost whats happening in each section.
+We've provided a set of deployment templates to speed up the build. Once you complete the setup, we'll run through basic operations to get you familiar with the solution and the underlying AWS services. If you want a deeper understanding of how the services work, take a look through the code. We've added comments to signpost what's happening in each section.
 
 {{% notice note %}}
 The solution you are about to deploy is an example. Use this lab and the accompanying code to create your own version that meets your specific cost optimization needs.
@@ -20,8 +20,8 @@ Deployment is a three step process.
 
 There are 2 **(Options)** to deploy AWS Services. Pick the one that suits you.
 
-1. [**AWS CloudFormation**](#step-1-option-1-cloudformation-deployment). We'll guide you through the setup step by step. You will need to setup Azure resources prior to deployment.
-2. [**Hashicorp Terraform**](#step-1-option-2-terraform-deployment). You will need to be familiar with Terraform and have an existing deployment pipeline. We include a sample template for Azure resources.
+1. [**AWS CloudFormation**.](#step-1-option-1-cloudformation-deployment)We'll guide you through the setup step by step. You will need to setup Azure resources prior to deployment.
+2. [**Hashicorp Terraform**.](#step-1-option-2-terraform-deployment) You will need to be familiar with Terraform and have an existing deployment pipeline. We include a sample template for Azure resources.
 
 {{% notice note %}}
 If you encounter an error during the lab, head over to the [Observability and Troubleshooting](../3_common_tasks)section.
@@ -36,13 +36,13 @@ If you encounter an error during the lab, head over to the [Observability and Tr
 * **azure-arm-storage.zip** Lambda layer for Azure storage
 * **cid-azure-gluejob-cfn.py** Glue job python script
 * **cid-azure-lambda01.zip - cid-azure-lambda06.zip** Azure blob copy Lambda functions
-* **cid-azure-stack.yaml** CloudFormation template.
+* **cid-azure-stack.yaml** CloudFormation template
 * **cid-azure-dashboard.yaml** Sample QuickSight dashboard
 
 2. Place the files in a new Amazon S3 bucket. CloudFormation will access these during deployment. Don't use the name in the screenshot below, someone's already used it and Amazon S3 bucket names need to be globally unique.
 ![Images/cidazure-setup-cfn-s3source](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-s3source.png?width=1000px)
 
-3. Click into **cid-azure-stack-yaml** and copy the Object URL. You'll need this in a moment.
+3. Click into **cid-azure-stack.yaml** and copy the Object URL. You'll need this in a moment.
 ![Images/cidazure-setup-cfn-s3objecturl](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-cfn-s3objecturl.png?width=1000px)
 
 4. Browse to the **CloudFormation** service.
@@ -148,7 +148,7 @@ Follow the instructions below to start a manual run.
 9. Take a look at the AWS Glue script if you have time. Click on the **Runs tab** and click the **Run** button. The AWS Glue job will execute.
 ![Images/cidazure-setups-manual-gluestart](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluestart.png?width=1000px)
 
-10. When the job completes the run status will change to *success*.
+10. When the job completes the run status will change to *succeeded*.
 ![Images/cidazure-setup-manual-gluesuccess](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-gluesuccess.png?width=1000px)
 
 11. Head back over to the same **Amazon S3 bucket** you accessed earlier. Two new folder have appeared. *azurecidparquet* contains parquet versions of the original CSV files. The original CSV files have moved to the *azurecidprocessed* folder and the *azurecidraw* folder has been deleted.
@@ -177,7 +177,7 @@ We've created a sample dashboard to get you started. We'll use the [**cid-cmd**]
 4. Run `aws s3 cp s3://SOURCEBUCKET/cid-azure-dashboard.yaml cid-azure-dashboard.yaml`. This will copy the QuickSight Dashboard template to CloudShell. Replace **SOURCEBUCKET**. This is the name of the bucket you uploaded the source files to way back at the start of the lab. In the screenshot below our bucket is called *awscidforazuresourcecode*
 ![Images/cidazure-setup-dashboard-s3tocloudshell](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-s3tocloudshell.png?width=1000px)
 
-5. We've created the next command for you. Let's retrieve it. Browse to **AWS Systems Manager**
+5. We've created the next command for you. Let's retrieve it. Open **AWS Systems Manager** in a new tab.
 ![Images/cidazure-setup-dashboard-ssmbrowse](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-dashboard-ssmbrowse.png?width=1000px)
 
 6. Click **Parameter Store**
@@ -230,7 +230,7 @@ Parameters allow us to configure the deployment. Each parameter has a descriptio
 |-|-|
 |![Images/cidazure-setup-cfn-parameters-cfn](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-parameters-cfn.png?width=600px)|![Images/cidazure-setup-cfn-parameters-tf](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-parameters-tf.png?width=600px)|
 
-There are no constraints set on parameters. Some Parameters only exist for specific deployment types. The following table provides additional information for each parameter.**Parameters will differ from the screenshot above. Use the table below for the most up-to-date settings**.
+There are no constraints set on parameters. Some Parameters only exist for specific deployment types. The following table provides additional information for each parameter. **Parameters will differ from the screenshot above. Use the table below for the most up-to-date settings**.
 
 |Parameter|Section|Deployment|Guidance|
 |-|-|-|-|
