@@ -328,7 +328,7 @@ When executing the AWS Glue job, it's possible to encounter errors. This section
 5. Sometimes the AWS Glue job errors will be more descriptive. The error below indicates that there are no files in the *azurecidraw* folder or the folder structure is incorrect.
 ![Images/cidazure-common-disable-secretsmanager](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-common-observe-nofileerror.png?width=1000px)
 
-6. Checking the error log reveals the same information 
+If you notice dashboard data is not updating, check the *azureciderrors* folder and Output logs for the AWS Glue job.
 
 {{% /expand%}}
 
