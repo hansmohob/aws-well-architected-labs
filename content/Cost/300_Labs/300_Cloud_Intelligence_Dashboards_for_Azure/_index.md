@@ -8,7 +8,7 @@ hidden: false
 
 ### Last Updated
 
-17th April 2023
+30th May 2023
 
 ### Authors
 
@@ -22,7 +22,7 @@ hidden: false
 We would love to hear your thoughts! Please drop us an [email](mailto:cloud-intelligence-dashboards@amazon.com) or raise an [issue.](/contributing/02_reportingbugs/) Got a great idea to improve this content? Head over to the [Contribution Guide.](/contributing/)
 
 ### Introduction
-Monitoring cloud usage is an important factor for all customers. Identifying areas for cost optimization starts with understanding cloud spend. Many customers use Amazon QuickSight and the [Cloud Intelligence Dashboards](/cost/200_labs/200_cloud_intelligence/) and want to use familiar tools to monitor cloud usage across multiple cloud providers. In this lab we show you how you can build a solution to view Microsoft Azure usage data in Amazon QuickSight. You will build a data pipeline to securely pull Azure cost management data to AWS. A QuickSight dashboard will automatically refresh, each day, to show useful insights. You will need to be familiar with the AWS console, but we'll walk you through the setup. This solution does not provide an aggregated view of usage across AWS and Azure (yet).
+Monitoring cloud usage is an important factor for all customers. Identifying areas for cost optimization starts with understanding cloud spend. Many customers take advantage of the[Cloud Intelligence Dashboards](/cost/200_labs/200_cloud_intelligence/) with Amazon QuickSight and want to use familiar tools to monitor cloud usage across multiple cloud providers. In this lab we show you how to build a solution to view Microsoft Azure usage data in Amazon QuickSight. You'll build a data pipeline to securely pull Azure cost management data to AWS. A QuickSight dashboard will automatically refresh, each day, to display useful insights. You will need to be familiar with the AWS console, but we'll walk you through the setup. This solution does not provide an aggregated view of usage across AWS and Azure (yet).
 
 | | | | |
 |-|-|-|-|
@@ -31,13 +31,15 @@ Monitoring cloud usage is an important factor for all customers. Identifying are
 | | | | |
 |-|-|-|-|
 
-Explore an example dashboard **TOCOMPLETE**
+{{% notice note %}}
+Click [here](https://d1s0yx3p3y3rah.cloudfront.net/anonymous-embed?dashboard=cid-for-azure) to explore a sample Cloud Intelligence Dashboard for Azure.
+{{% /notice %}}
 
 ### Goals
 
-* Deploy an ETL pipeline to pull Azure cost management data to an Amazon Simple Storage Service (Amazon S3) bucket on a daily recurring schedule.
+* Deploy an ETL pipeline to pull Azure cost management data to Amazon Simple Storage Service (Amazon S3) on a daily recurring schedule.
 * Run an initial manual pull of data.
-* Deploy a sample QuickSight dashboard to view Azure usage data.
+* Deploy a sample QuickSight dashboard.
 * Apply a basic set of dashboard customizations.
 * Learn how to manage the operation of the solution.
 
@@ -66,12 +68,12 @@ Once you've setup Azure, you'll have the following information and are ready to 
 
 
 {{% notice note %}}
-If you use Hashicorp Terraform within your organization, we've provided a sample Terraform template that may remove steps 3 to 6.
+If you use Hashicorp Terraform, we've provided a sample Terraform template that may remove steps 3 to 6.
 {{% /notice %}} 
 
 ### Permissions Required
 
-You'll need permissions to create all **AWS resources** shown below through **AWS CloudFormation** or **Hashicorp Terraform**. 
+You'll need permissions to create all **AWS resources** shown below.
 ![Images/cidazure-highlevel.png](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-highlevel.png)
 
 ### Costs
@@ -84,7 +86,7 @@ Costs for this lab include the following components;
 
 ### Duration
 
-**1-2 hours** depending on your level of experience. We'll speed this up by providing deployment templates to automate the build.
+**1-2 hours** depending on your level of experience. We'll speed up the process by providing deployment templates to automate your build.
 
 When you're ready to begin, click the button below and hold on to your hat!
 

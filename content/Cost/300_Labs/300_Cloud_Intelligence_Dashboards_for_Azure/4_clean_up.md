@@ -58,6 +58,6 @@ Nice work, all resources have been deleted. Please visit us again sometime soon 
 Nice work, all resources have been deleted. Please visit us again sometime soon :)
 {{% /expand%}}
 
-Thanks for your time, we hope you enjoyed this lab. We would love to hear your thoughts! Please drop us an [email](mailto:cloud-intelligence-dashboards@amazon.com) or raise an [issue.](/contributing/02_reportingbugs/) Got a great idea to improve this content? Head over to the [Contribution Guide.](/contributing/)
+We hope you enjoyed this lab. We would love to hear your thoughts! Please drop us an [email](mailto:cloud-intelligence-dashboards@amazon.com) or raise an [issue.](/contributing/02_reportingbugs/) Got a great idea to improve this content? Head over to the [Contribution Guide.](/contributing/)
 
-{{< prev_next_button link_prev_url="../3_common_tasks/"  title="Congratulations!" final_step="true" >}}
+{{< prev_next_button link_prev_url="../3_common_tasks/"  title="Congratulations!" final_step="true" >}}`
