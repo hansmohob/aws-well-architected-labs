@@ -165,7 +165,7 @@ When you run the AWS Glue job for the first time, it performs a **bulk run**. Th
 12. Click into the *azurecidparquet* folder. You'll notice data is partitioned by month.
 ![Images/cidazure-setup-manual-s3parquet](/Cost/300_Cloud_Intelligence_Dashboard_for_Azure/Images/cidazure-setup-manual-s3parquet.png?width=1000px)
 
-Awesome! You've completed the manual run, let's move onto [Dashboard Deployment.](#dashboard-deployment).
+Awesome! You've completed the manual run, let's move onto [Dashboard Deployment.](#dashboard-deployment)
 {{% /expand%}}
 
 ### Step 3 Dashboard Deployment
